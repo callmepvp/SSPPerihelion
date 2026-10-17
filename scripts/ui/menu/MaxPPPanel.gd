@@ -84,7 +84,7 @@ func update_info(_a = null):
 	number.add_color_override("font_color", GOLD)
 	target_pp = info.pp
 	counting = true
-	detail.text = "at 100%% accuracy   -   %.2f stars   -   %.2fx speed" % [info.stars, info.speed]
+	detail.text = "at 100%% accuracy   -   %.2f stars   -   %.2fx speed" % [info.overall_stars, info.speed]
 	var txt:String = ""
 	if info.best > 0:
 		txt = "Your best: %.0f pp" % info.best

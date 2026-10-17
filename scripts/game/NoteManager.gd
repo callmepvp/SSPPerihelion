@@ -281,7 +281,7 @@ func reposition_notes(force:bool=false,rerun_start:int=-1):
 					)
 
 					missEffect.duplicate().spawn(self,pos,notes[i][3],miss_id,true)
-				emit_signal("miss",notes[i][3])
+				emit_signal("miss",notes[i][3],notes[i][1])
 				prev_ms = notems
 			elif result:
 #				$Label.text += "HIT %s @ %s\n" % [ i, ms ]

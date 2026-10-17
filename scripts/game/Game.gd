@@ -17,6 +17,8 @@ var combo_level:int = 1
 var lvl_progress:int = 0
 var song_has_failed:bool = false
 
+var miss_positions:Array = []
+
 export(StyleBox) var timer_fg_done
 
 func comma_sep(number):
@@ -34,6 +36,8 @@ func loadMapFile():
 	last_ms = map.last_ms
 	if map.should_reload_on_play:
 		map.setup_from_file(map.initFile,map.musicFile)
+	
+	miss_positions = []
 	notes = map.read_notes()
 	var song:AudioStream = map.stream()
 	$Spawn.spawn_notes(notes)
@@ -69,6 +73,7 @@ func end(end_type:int):
 	Rhythia.song_end_length = last_ms
 	Rhythia.song_end_type = end_type
 	Rhythia.song_end_combo = max_combo
+	Rhythia.song_end_miss_positions = miss_positions.duplicate()
 
 	if Rhythia.record_replays and !Rhythia.replaying:
 		Rhythia.replay.end_recording()
@@ -148,6 +153,7 @@ var black_fade_target:bool = true
 var black_fade:float = 1
 
 func _process(delta):
+
 	if !ending:
 		if Input.is_action_pressed("give_up"):
 			giving_up += delta/0.6
@@ -217,10 +223,11 @@ func hit(col):
 	score += points
 	return points
 
-func miss(col):
+func miss(col, note_ms:float=0):
 	emit_signal("miss",col)
 	misses += 1
 	total_notes += 1
+	if note_ms > 0: miss_positions.append(note_ms)
 	energy = clamp(energy-1,0,max_energy)
 	combo = 0
 	lvl_progress = 0

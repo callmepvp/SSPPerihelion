@@ -122,6 +122,9 @@ var song_end_accuracy_str:String
 var song_end_time_str:String
 var song_end_length:float
 var song_end_combo:int
+
+var song_end_miss_positions:Array = []
+
 # Replay data
 var replay:Replay
 var replay_path:String = ""

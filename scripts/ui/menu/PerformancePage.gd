@@ -88,7 +88,7 @@ func refresh():
 			"%.2f%%" % (p.accuracy * 100.0),
 			"%d" % int(p.misses),
 			"%.2fx" % p.speed,
-			"%.2f" % p.get("stars", 0.0)
+			"%.2f" % p.get("overall_stars", p.get("stars", 0.0))
 		]
 		for i in range(vals.size()):
 			var al = Label.ALIGN_LEFT if i < 2 else Label.ALIGN_RIGHT
