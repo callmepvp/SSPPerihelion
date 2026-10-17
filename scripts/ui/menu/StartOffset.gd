@@ -10,7 +10,8 @@ func value_changed(value):
 	Rhythia.start_offset = value * 1000
 	call_deferred("upd_label")
 
-func on_map_selected(_map):
+func on_map_selected(_map=null):
+	if Rhythia.selected_song == null: return
 	self.max_value = get_seconds_from_ms(Rhythia.selected_song.last_ms)
 	self.value = 0
 

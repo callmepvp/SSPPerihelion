@@ -5,14 +5,14 @@ const BEST_PATH = "user://pp_scores.json"
 const HISTORY_PATH = "user://pp_history.jsonl"
 
 # Aim skill
-const AIM_STRAIN_DECAY = 0.15
+const AIM_STRAIN_DECAY = 0.1
 const AIM_SPEED_EXP = 1.06
 const AIM_ANGLE_WEIGHT = 0.6
 const AIM_WIDE_WEIGHT = 0.4
 const AIM_STAR_SCALE = 0.0035
 
 # Speed skill
-const SPEED_STRAIN_DECAY = 0.15
+const SPEED_STRAIN_DECAY = 0.1
 const SPEED_RATE_EXP = 1.3
 const SPEED_RATE_BASE = 5.0
 const SPEED_STREAM_MULT = 1.15
@@ -39,7 +39,9 @@ const COMBO_SCALE_EXP = 0.8
 const MAX_HITWINDOW = 55.0
 const MAX_HITBOX = 1.1401
 
-const MIN_DT_S = 0.03
+const MIN_DT_S = 0.012
+
+const MERGE_GAP_MS = 5.0
 
 var plays:Dictionary = {}
 var diff_cache:Dictionary = {}
@@ -51,9 +53,12 @@ func _ready():
 
 func get_star_ratings(song:Song, speed:float) -> Dictionary:
 	var key = "%s|%.2f" % [song.id, speed]
+	print("[STARS] %s speed=%.2f cached=%s" % [song.id, speed, diff_cache.has(key)])
+	
 	if diff_cache.has(key): return diff_cache[key]
 
-	var notes:Array = song.read_notes()
+	var notes:Array = _merge_notes(song.read_notes())
+	
 	if notes.size() < 2:
 		var empty = {aim = 0.0, speed = 0.0, overall = 0.0}
 		diff_cache[key] = empty
@@ -181,6 +186,31 @@ func _section_peaks(notes:Array, speed:float) -> Dictionary:
 func get_mod_multiplier() -> float:
 	# TODO: SD/HR/FL/Ghost multipliers
 	return 1.0
+		
+func _merge_notes(notes:Array) -> Array:
+	if notes.size() < 2: return notes
+	var merged:Array = []
+	var cluster:Array = [notes[0]]
+	for i in range(1, notes.size()):
+		if notes[i][2] - cluster[cluster.size()-1][2] <= MERGE_GAP_MS:
+			cluster.append(notes[i])
+		else:
+			merged.append(_cluster_center(cluster))
+			cluster = [notes[i]]
+	if cluster.size() > 0:
+		merged.append(_cluster_center(cluster))
+	return merged
+
+func _cluster_center(cluster:Array) -> Array:
+	if cluster.size() == 1: return cluster[0]
+	var sx = 0.0
+	var sy = 0.0
+	for n in cluster:
+		sx += n[0]
+		sy += n[1]
+	return [sx / cluster.size(), sy / cluster.size(), cluster[cluster.size()-1][2]]
+	
+	
 
 # === Recording ===
 
@@ -201,11 +231,14 @@ func record_play():
 	var play = {
 		id = song.id,
 		name = song.name,
+		creator = song.creator,
+		difficulty = song.difficulty,
+		difficulty_name = song.custom_data.get("difficulty_name", ""),
 		pp = pp,
 		aim_stars = ratings.aim,
 		speed_stars = ratings.speed,
 		overall_stars = ratings.overall,
-		stars = ratings.overall, # backwards-compat with old code paths
+		stars = ratings.overall,
 		accuracy = acc,
 		misses = r.song_end_misses,
 		miss_positions = r.song_end_miss_positions.duplicate(),
@@ -295,6 +328,9 @@ func max_pp_info(song:Song) -> Dictionary:
 	var ratings = get_star_ratings(song, speed)
 	var total_notes:int = max(song.note_count, 2)
 	var pp:float = calc_pp(song, speed, 1.0, total_notes, [], total_notes)
+	
+	print("[PP-CALC] aim=%.3f spd=%.3f overall=%.3f pp=%.3f" % [ratings.aim, ratings.speed, ratings.overall, pp])
+	
 	var best:float = 0.0
 	var old = plays.get(song.id)
 	if old != null: best = old.pp

@@ -341,6 +341,9 @@ func sort_note_queue(a,b):
 	return a[2] < b[2]
 
 func spawn_notes(note_array:Array):
+	if note_array.size() == 0:
+		return
+	
 	note_array.sort_custom(self,"sort_note_queue")
 	
 	var nscale = 0.45 * Rhythia.note_size * (Rhythia.note_hitbox_size / 1.14)
@@ -378,7 +381,9 @@ func spawn_notes(note_array:Array):
 			notes.append(note)
 	
 	var last_ms = note_array[-1][2]
-	var inst_count = max(35,ceil(10000 * (float(notes.size()) / float(last_ms))))
+	var inst_count = 35
+	if last_ms > 0:
+		inst_count = max(35, ceil(10000 * (float(notes.size()) / float(last_ms))))
 	$Notes.multimesh.instance_count = inst_count
 	if asq:
 		$ASq.multimesh.instance_count = inst_count
