@@ -101,7 +101,6 @@ func on_pressed(i):
 	
 func switch_to_play_screen():
 	size_list()
-	if Rhythia.menu_target == "res://scenes/menu/menu.tscn": return
 	if disp.find(Rhythia.registry_song.get_item(Rhythia.selected_song.id)) == -1: #if the selected song is not in the list, reset filters to show it
 		reset_filters()
 	get_viewport().get_node("Menu/Sidebar").press(0,true)
