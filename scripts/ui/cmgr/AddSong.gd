@@ -806,7 +806,7 @@ func do_coversel():
 		"file_selected",
 		PoolStringArray(["*.png, *.jpg, *.jpeg, *.webp, *.bmp ; Image files"]),
 		false,
-		"~/Downloads"
+		OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)
 	)
 
 func finish_map():

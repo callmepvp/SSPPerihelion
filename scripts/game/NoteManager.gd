@@ -569,30 +569,6 @@ func do_spin():
 		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
 	)
 
-func do_vr_cursor():
-	var centeroff = Rhythia.vr_player.primary_ray.get_collision_point() + cursor_offset
-	
-	var cx = centeroff.x
-	var cy = -centeroff.y
-	cx = clamp(cx, (0 + sh.x + edgec), (3 + sh.x - edgec))
-	cy = clamp(cy, (0 + sh.y + edgec), (3 + sh.y - edgec))
-	centeroff.x = cx - cursor_offset.x
-	centeroff.y = -cy - cursor_offset.y
-	
-	var hlm = 0.25
-	var uim = Rhythia.get("ui_parallax") * 0.1
-	var grm = Rhythia.get("grid_parallax") * 0.1
-	cam.transform.origin = Vector3(
-		centeroff.x*hlpower, centeroff.y*hlpower, 3.735
-	)
-	Grid.transform.origin = Vector3(
-		-centeroff.x*hlm*uim, -centeroff.y*hlm*uim, Grid.transform.origin.z
-	)
-	transform.origin = Vector3(
-		-(centeroff.x*hlm*grm)-1, -(centeroff.y*hlm*grm)+1, 0
-	)
-	get_node("Cursor").transform.origin = centeroff + cursor_offset
-
 func comma_sep(number):
 	var string = str(number)
 	var mod = string.length() % 3
@@ -667,8 +643,7 @@ func _process(delta:float):
 	delta = float(u - last_usec) / 1_000_000.0
 	last_usec = u
 	
-	if Rhythia.vr: do_vr_cursor()
-	elif Rhythia.get("cam_unlock"): do_spin()
+	if Rhythia.get("cam_unlock"): do_spin()
 	else: do_half_lock()
 	
 	_set_rec_interval(delta)

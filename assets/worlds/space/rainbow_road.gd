@@ -5,8 +5,6 @@ func _process(delta):
 	if transform.origin.z >= 6.45: transform.origin.z -= 6.45
 
 func _ready():
-	if Rhythia.vr:
-		$Vignette.visible = false
 	# Shaders
 	var env = get_parent().get_node("WorldEnvironment").environment
 	if Rhythia.glow > 0:

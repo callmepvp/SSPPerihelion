@@ -97,7 +97,7 @@ func get_absolute_position():
 	return Vector2(pos.x,-pos.y) + Vector2(1,1)
 
 func _input(event:InputEvent):
-	if !Rhythia.replaying and !Rhythia.vr:
+	if !Rhythia.replaying:
 		if can_switch_move_modes:
 			if event is InputEventJoypadMotion:
 				move_mode = C_JOYSTICK

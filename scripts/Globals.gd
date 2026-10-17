@@ -126,12 +126,6 @@ enum {
 }
 
 enum {
-	VR_GENERIC
-	VR_OCULUS
-	VR_VIVE
-}
-
-enum {
 	NOTIFY_INFO = 0
 	NOTIFY_WARN = 1
 	NOTIFY_ERROR = 2
@@ -495,10 +489,7 @@ const official_map_difficulties:Dictionary = {
 
 var errornum:int = 0
 func p(path:String) -> String:
-	var base_path = "user://"
-	if OS.has_feature("Android"):
-		base_path = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP, false) + "/" #OS.get_user_data_dir() + "/"
-	return path.replace("user://",base_path)
+	return path
 
 var error_sound:AudioStream
 

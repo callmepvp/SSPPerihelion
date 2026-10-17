@@ -162,15 +162,6 @@ var last_difficulty_filter:Array = [
 	Globals.DIFF_AMOGUS
 ]
 
-# VR
-var vr:bool = false
-var fake_vr:bool = false
-var vr_available:bool = false
-var vr_interface:ARVRInterface
-var vr_player:VRPlayer
-var vr_left_handed:bool = false
-var vr_controller_type:int = Globals.VR_GENERIC
-
 # Song queue
 var queue_active:bool = false
 var queue_pos:int = 0
@@ -210,86 +201,6 @@ var ignore_controller_detection:bool = false
 
 # HUD with HR
 var expand_hud_onhr:bool = false
-
-# VR startup
-func start_vr():
-	if vr:
-		print("VR already active")
-		return
-	print("VR START")
-	vr = true
-
-	get_viewport().hdr = false
-	OS.vsync_enabled = false
-	Engine.target_fps = 90
-
-	if Input.is_key_pressed(KEY_SHIFT):
-		print("enabling fake vr")
-		OS.window_maximized = true
-		fake_vr = true
-
-		var ev = InputEventKey.new()
-		ev.scancode = KEY_F
-		InputMap.action_add_event("vr_switch_hands",ev)
-
-		ev = InputEventMouseButton.new()
-		ev.button_index = BUTTON_LEFT
-		InputMap.action_add_event("vr_click",ev)
-	else:
-		vr_interface.initialize()
-		get_viewport().arvr = true
-
-		# Hand switch binds
-		var ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_OCULUS_MENU
-		InputMap.action_add_event("vr_switch_hands",ev)
-
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_OPENVR_MENU
-		InputMap.action_add_event("vr_switch_hands",ev)
-
-		# Give up binds
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_VR_GRIP
-		InputMap.action_add_event("give_up",ev)
-
-		ev = InputEventJoypadMotion.new()
-		ev.axis = JOY_VR_ANALOG_GRIP
-		InputMap.action_add_event("give_up",ev)
-
-		# Pause binds
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_VR_TRIGGER
-		InputMap.action_add_event("pause",ev)
-
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_OCULUS_BY
-		InputMap.action_add_event("pause",ev)
-
-		ev = InputEventJoypadMotion.new()
-		ev.axis = JOY_VR_ANALOG_TRIGGER
-		InputMap.action_add_event("pause",ev)
-
-		# Click binds
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_VR_TRIGGER
-		InputMap.action_add_event("vr_click",ev)
-
-		ev = InputEventJoypadButton.new()
-		ev.button_index = JOY_OCULUS_AX
-		InputMap.action_add_event("vr_click",ev)
-
-		ev = InputEventJoypadMotion.new()
-		ev.axis = JOY_VR_ANALOG_TRIGGER
-		InputMap.action_add_event("vr_click",ev)
-
-	var vr_av:VRPlayer = load("res://vr/VRPlayer.tscn").instance()
-	rootg.add_child(vr_av)
-	vr_av.name = "VRPlayer"
-	vr_player = vr_av
-
-	menu_target = "res://vr/vrmenu.tscn"
-	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 # Song queue
 func prepare_queue():
@@ -398,9 +309,6 @@ func console_cmd_error(body:String):
 	Globals.confirm_prompt.s_back.play()
 	Globals.confirm_prompt.close()
 	
-func update_rpc_song(): # Discord RPC
-	pass
-	
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 	path = Globals.p(path)
 	var file:File = File.new()
@@ -418,9 +326,6 @@ func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 				elif mf is AudioStreamSample: mf.loop_mode = AudioStreamSample.LOOP_DISABLED
 				return mf
 	return default
-
-
-
 
 # Modifiers - Normal
 var mod_extra_energy:bool = false setget set_mod_extra_energy # Easy Mode
@@ -2447,7 +2352,6 @@ func do_init(_ud=null):
 			convert_song_pbs(allmaps[i])
 
 	# Load favorite songs
-	# Check if VR is available
 	if !first_init_done:
 
 		# Favorite songs
@@ -2458,15 +2362,6 @@ func do_init(_ud=null):
 			var txt = file.get_as_text()
 			file.close()
 			favorite_songs = txt.split("\n",false)
-
-		# VR
-		emit_signal("init_stage_reached","Check VR status")
-		yield(get_tree(),"idle_frame")
-
-		var interface = ARVRServer.find_interface("OpenVR")
-		if interface:
-			vr_interface = interface
-			vr_available = true
 
 	dir.change_dir("res://")
 	first_init_done = true

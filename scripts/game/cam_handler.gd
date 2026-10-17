@@ -4,7 +4,7 @@ var state = (Rhythia.replaying and Rhythia.alt_cam)
 var debug:bool = OS.has_feature("debug")
 
 func _ready():
-	PhysicsServer.set_active(!Rhythia.visual_mode and (Rhythia.get("cam_unlock") or Rhythia.vr))
+	PhysicsServer.set_active(!Rhythia.visual_mode and (Rhythia.get("cam_unlock")))
 	
 	# alt camera init
 	if state:

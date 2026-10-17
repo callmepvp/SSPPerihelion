@@ -1,8 +1,6 @@
 extends ColorRect
 class_name FileSelector2D
 
-var use_native:bool = false
-
 var target_object:Object
 var target_method:String
 var cancel_method:String
@@ -31,35 +29,16 @@ func folder_sel(folder:String):
 		target_object = self
 		visible = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	visible = false
-	if (
-		!ProjectSettings.get_setting("application/config/disable_native_file_dialogs") and
-		$OpenFile.has_signal("files_selected") and
-		$SaveFile.has_signal("file_selected") and
-		$Folder.has_signal("folder_selected")
-	):
-		use_native = true
-		$OpenFile.connect("files_selected",self,"files_sel")
-		$SaveFile.connect("file_selected",self,"save_sel")
-		$Folder.connect("folder_selected",self,"folder_sel")
-		
-		$Spinner.visible = true
-		$Label.visible = true
-	else:
-		$C/SaveFile.connect("file_selected",self,"save_sel")
-		$C/OpenFile.connect("file_selected",self,"files_single")
-		$C/OpenFile.connect("files_selected",self,"files_sel")
-		$C/Folder.connect("dir_selected",self,"folder_sel")
-		
-		$C/OpenFile.connect("hide",self,"files_sel",[PoolStringArray()])
-		$C/SaveFile.connect("hide",self,"save_sel",[""])
-		$C/Folder.connect("hide",self,"folder_sel",[""])
-		
-		$Spinner.visible = false
-		$Label.visible = false
+	$C/SaveFile.connect("file_selected",self,"save_sel")
+	$C/OpenFile.connect("file_selected",self,"files_single")
+	$C/OpenFile.connect("files_selected",self,"files_sel")
+	$C/Folder.connect("dir_selected",self,"folder_sel")
 
+	$C/OpenFile.connect("hide",self,"files_sel",[PoolStringArray()])
+	$C/SaveFile.connect("hide",self,"save_sel",[""])
+	$C/Folder.connect("hide",self,"folder_sel",[""])
 
 func open_file(
 	obj:Object,
@@ -70,30 +49,19 @@ func open_file(
 ):
 	target_object = obj
 	target_method = method
-	
+
 	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
 	$C/OpenFile.rect_scale = Vector2(clamp(Rhythia.render_scale,0.5,1), clamp(Rhythia.render_scale,0.5,1))
-	
-	if use_native:
-		$OpenFile.filters = filters
-		$OpenFile.multiselect = multiselect
-		$OpenFile.initial_path = Globals.p(initial_path)
-		if multiselect:
-			$OpenFile.title = "Select files..."
-		else:
-			$OpenFile.title = "Select file..."
-		$OpenFile.show()
-	
+
+	$C/OpenFile.filters = filters
+	if multiselect:
+		$C/OpenFile.mode = $C/OpenFile.MODE_OPEN_FILES
+		$C/OpenFile.window_title = "Select files..."
 	else:
-		$C/OpenFile.filters = filters
-		if multiselect:
-			$C/OpenFile.mode = $C/OpenFile.MODE_OPEN_FILES
-			$C/OpenFile.window_title = "Select files..."
-		else:
-			$C/OpenFile.mode = $C/OpenFile.MODE_OPEN_FILE
-			$C/OpenFile.window_title = "Select file..."
-		$C/OpenFile.show()
-		$C/OpenFile.call_deferred("set_current_dir",Globals.p(initial_path))
+		$C/OpenFile.mode = $C/OpenFile.MODE_OPEN_FILE
+		$C/OpenFile.window_title = "Select file..."
+	$C/OpenFile.show()
+	$C/OpenFile.call_deferred("set_current_dir",Globals.p(initial_path))
 	visible = true
 	raise()
 
@@ -105,19 +73,13 @@ func save_file(
 ):
 	target_object = obj
 	target_method = method
-	
+
 	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
 	$C/OpenFile.rect_scale = Vector2(clamp(Rhythia.render_scale,0.5,1), clamp(Rhythia.render_scale,0.5,1))
-	
-	if use_native:
-		$SaveFile.filters = filters
-		$SaveFile.initial_path = Globals.p(initial_path)
-		$SaveFile.show()
-	
-	else:
-		$C/SaveFile.filters = filters
-		$C/SaveFile.show()
-		$C/SaveFile.call_deferred("set_current_dir",Globals.p(initial_path))
+
+	$C/SaveFile.filters = filters
+	$C/SaveFile.show()
+	$C/SaveFile.call_deferred("set_current_dir",Globals.p(initial_path))
 	visible = true
 	raise()
 
@@ -128,13 +90,8 @@ func open_folder(
 ):
 	target_object = obj
 	target_method = method
-	
-	if use_native:
-		$Folder.initial_path = Globals.p(initial_path)
-		$Folder.show()
-	
-	else:
-		$C/Folder.show()
-		$C/Folder.call_deferred("set_current_dir",Globals.p(initial_path))
+
+	$C/Folder.show()
+	$C/Folder.call_deferred("set_current_dir",Globals.p(initial_path))
 	visible = true
 	raise()

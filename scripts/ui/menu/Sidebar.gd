@@ -46,7 +46,6 @@ onready var smm_visibility:Dictionary = {
 	$L/Credits: true,
 	$L/ContentMgr: true,
 	$L/Language: false,
-	$L/StartVR: false,
 	$L/OldMenu: false,
 	$L/Quit: true,
 	$L/RhythiaRewrite: true
@@ -65,9 +64,6 @@ func press(bi:int,q:bool=false):
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,0)
 	else:
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,1)
-#	open = false
-#	get_node("Click").visible = !open
-#	get_node("../SidebarClick").visible = open
 
 func to_old_menu():
 	get_node("../Press").play()
@@ -80,12 +76,6 @@ func to_old_menu():
 	else: Rhythia.menu_target = "res://scenes/menu/menu.tscn"
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
-
-func to_vr():
-	get_node("../Press").play()
-	get_viewport().get_node("Menu").black_fade_target = true
-	yield(get_tree().create_timer(0.35),"timeout")
-	Rhythia.start_vr()
 
 func quit():
 	get_node("../Press").play()
@@ -133,13 +123,7 @@ func _ready():
 	$L.connect("mouse_entered",self,"_on_Sidebar", [true])
 	connect("mouse_exited",self,"_on_Sidebar", [false])
 	$L/OldMenu.connect("pressed",self,"to_old_menu")
-	$L/StartVR.connect("pressed",self,"to_vr")
 	$L/Quit.connect("pressed",self,"quit")
-
-	$L/ContentMgr.visible = not Rhythia.vr
-#	$L/StartVR.visible = Rhythia.vr_available and not Rhythia.vr
-	if Rhythia.vr or !OS.has_feature("pc"):
-		$L/Quit/Label.text = "Quit to Home"
 
 	if Rhythia.single_map_mode:
 		for n in $L.get_children():

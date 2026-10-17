@@ -93,7 +93,6 @@ func end(end_type:int):
 			$Spawn.ms = Rhythia.start_offset - (3000 * $Spawn.speed_multi)
 			Rhythia.select_song(next)
 			$HUD.set_song_name(Rhythia.selected_song.name)
-			Rhythia.update_rpc_song()
 			if Rhythia.record_replays and !Rhythia.replaying:
 				Rhythia.replay = Replay.new()
 				Rhythia.replay.start_recording(Rhythia.selected_song)
@@ -303,9 +302,6 @@ func _ready():
 #	$Spawn.connect("hit",self,"hit")
 	$Spawn.connect("miss",self,"miss")
 	loadMapFile()
-	
-	
-	Rhythia.update_rpc_song()
 	
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")

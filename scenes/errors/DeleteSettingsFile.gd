@@ -14,15 +14,8 @@ func confirm(v:int):
 			var res:int = dir.remove(Globals.p("user://settings.json"))
 			yield(Globals.confirm_prompt,"done_closing")
 			if res != OK and res != ERR_FILE_NOT_FOUND:
-				Globals.confirm_prompt.open(
-					"An error occurred while deleting your settings file. "+
-					"Try manually deleting it, and if that doesn't work, "+
-					"please ask for help in the Discord server.\n"+
-					"https://discord.gg/rhythia"+
-					"\n(error code %s)" % res,
-					"Error",
-					[{text="OK"}]
-				)
+				var msg:String = "An error occurred while deleting your settings file. Try deleting settings.json by hand from:\n%s\n(error code %s)" % [OS.get_user_data_dir(), res]
+				Globals.confirm_prompt.open(msg, "Error", [{text="OK"}])
 				return
 			else:
 				Globals.confirm_prompt.open(

@@ -12,19 +12,11 @@ var black_fade:float = 0
 func _ready():
 	print("song loading")
 	get_tree().paused = false
-	if Rhythia.vr:
-		Rhythia.vr_player.transform.origin = Vector3(0,-2.5,4.5)
 	$BlackFade.visible = true
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var s = Globals.error_sound
-#	var st = Rhythia.get_stream_with_default("user://loadingmusic",s)
-#	if st != s:
-#		$Music.stream = st
-#		$Music.play()
-	
-#	$AudioStreamPlayer.play()
 	
 	var res = RQueue.queue_resource(target)
 	var res2 = RQueue.queue_resource(target2)
@@ -171,7 +163,6 @@ func finish():
 	leaving = true
 
 func _process(delta):
-#	$AudioStreamPlayer.volume_db = -3 - (50*black_fade)
 	$Music.volume_db = -8 - (50*black_fade)
 	if black_fade_target && black_fade != 1:
 		black_fade = min(black_fade + (delta/0.6),1)
