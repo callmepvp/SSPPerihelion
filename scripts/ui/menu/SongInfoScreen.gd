@@ -62,11 +62,7 @@ func update(_s=null):
 	else: txt += tr("hitwindow: %s ms") % Rhythia.hitwindow_ms
 	$RS/HMid/Hitboxes.text = txt
 
-	if map.creator == "DyamoDash":
-		$RS/H1/Info/Mapper/Mapper.text = map.creator + " ♡"
-		$RS/HMid/Hitboxes.text = txt + "\nHave you seen the Dyamo easter egg?\nHold D Y A when starting the game!"
 
-	
 	for i in range(difficulty_btns.size()):
 		var n:Panel = difficulty_btns[i]
 		n.visible = (map.difficulty == i-1)

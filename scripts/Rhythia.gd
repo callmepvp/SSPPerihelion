@@ -623,10 +623,6 @@ var hit_pitch:bool = false
 var hit_pitch_min:float = 0.9
 var hit_pitch_max:float = 1.15
 
-var arcw_mode:bool = false # heheheha
-var sex_mode:bool = false
-var memory_lane:bool = false # :(
-
 var language:int = 0
 
 # Favorited songs
@@ -828,24 +824,6 @@ func load_pbs():
 				personal_bests[songid].append(pb)
 				x = file.get_16() # READ 2
 		file.close()
-
-# dumb lacunella stuff
-func is_lacunella_enabled():
-	var cdat = File.new()
-	if cdat.file_exists("user://lacunella.dat"):
-		cdat.open("user://lacunella.dat",File.READ)
-		var ctxt = cdat.get_as_text()
-		if ctxt.to_upper() == "MEOW": return true
-	return false
-
-# for max
-func memory_lacu():
-	var cdata = File.new()
-	if cdata.file_exists("user://memory.dat"):
-		cdata.open("user://memory.dat",File.READ)
-		var ctxt = cdata.get_as_text()
-		if ctxt.to_upper() == "DYAMO": return true
-	return false
 
 # Settings save/load helpers
 func scol(c:Color) -> String:
@@ -2359,16 +2337,6 @@ func do_init(_ud=null):
 	dir.change_dir("res://")
 	first_init_done = true
 	do_archive_convert = false
-
-	if Input.is_key_pressed(KEY_A) and Input.is_key_pressed(KEY_R) and Input.is_key_pressed(KEY_C) and Input.is_key_pressed(KEY_W):
-		arcw_mode = true
-		alert = "ARCW mode enabled successfully."
-	if Input.is_key_pressed(KEY_S) and Input.is_key_pressed(KEY_E) and Input.is_key_pressed(KEY_X):
-		sex_mode = true
-		alert = "Sex mode enabled successfully."
-	if Input.is_key_pressed(KEY_D) and Input.is_key_pressed(KEY_Y) and Input.is_key_pressed(KEY_A):
-		memory_lane = true
-		alert = "Memory Lane enabled successfully."
 
 	var alert_snd_played:bool = false
 	if alert != "":
