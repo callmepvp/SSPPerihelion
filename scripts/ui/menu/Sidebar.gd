@@ -9,8 +9,7 @@ onready var pages:Array = [
 	get_node("../Main/Settings"),
 	get_node("../Main/Credits"),
 	get_node("../Main/Content"),
-	get_node("../Main/Language"),
-	get_node("../Main/RhythiaRewrite")
+	get_node("../Main/Language")
 ]
 onready var buttons:Array = [
 	$L/Results,
@@ -18,14 +17,12 @@ onready var buttons:Array = [
 	$L/Settings,
 	$L/Credits,
 	$L/ContentMgr,
-	$L/Language,
-	$L/RhythiaRewrite
+	$L/Language
 ]
 var use_ver_b:Array = [
 	false,
 #	false,
 	true,
-	false,
 	false,
 	false,
 	false
@@ -36,7 +33,6 @@ var hide_ver:Array = [
 	false,
 	true,
 	false,
-	false,
 	false
 ]
 onready var smm_visibility:Dictionary = {
@@ -46,8 +42,7 @@ onready var smm_visibility:Dictionary = {
 	$L/Credits: true,
 	$L/ContentMgr: true,
 	$L/Language: false,
-	$L/Quit: true,
-	$L/RhythiaRewrite: true
+	$L/Quit: true
 }
 
 func press(bi:int,q:bool=false):
@@ -69,7 +64,7 @@ func quit():
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().quit()
-	
+
 func _add_performance_page():
 	var main = get_node("../Main")
 	var page:Control = Control.new()
@@ -121,10 +116,8 @@ func _process(delta:float):
 
 	if open == true and open_amt != 1:
 		open_amt = min(open_amt + max((1 - open_amt) * delta * 14, 0.05*delta),1)
-#		if open_amt > 0.99: open_amt = 1
 	elif open == false and open_amt != 0:
 		open_amt = max(open_amt + min((0 - open_amt) * delta * 12, -0.05*delta),0)
-#		if open_amt < 0.01: open_amt = 0
 
 	rect_size.x = 60 + (180 * open_amt)
 
@@ -139,7 +132,7 @@ func _input(ev):
 	if Input.is_action_just_pressed("ui_quicksettings"):
 		press(1)
 
-	if Input.is_action_just_pressed("menu_quickbar"): # uuhhh no, mouse checks won't work with this
+	if Input.is_action_just_pressed("menu_quickbar"):
 		open = true
 		get_node("Click").visible = !open
 
