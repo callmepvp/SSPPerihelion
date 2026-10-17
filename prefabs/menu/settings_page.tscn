@@ -1,58 +1,36 @@
-[gd_scene load_steps=91 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/images/ui/reset_to_default.png" type="Texture" id=4]
 [ext_resource path="res://scripts/ui/settings/UserDir.gd" type="Script" id=5]
-[ext_resource path="res://scripts/ui/settings/NoteHitboxSize.gd" type="Script" id=6]
+[ext_resource path="res://scripts/ui/settings/SettingsSpinBox.gd" type="Script" id=6]
 [ext_resource path="res://scripts/ui/settings/VolumeSetting.gd" type="Script" id=8]
 [ext_resource path="res://scripts/ui/settings/HitEffect.gd" type="Script" id=9]
-[ext_resource path="res://scripts/ui/settings/CursorSpin.gd" type="Script" id=10]
 [ext_resource path="res://scripts/ui/settings/WorldSel.gd" type="Script" id=11]
-[ext_resource path="res://scripts/ui/settings/EdgeBuffer.gd" type="Script" id=12]
 [ext_resource path="res://assets/images/ui/placeholder_dark.jpg" type="Texture" id=13]
 [ext_resource path="res://scripts/ui/settings/ReplayDir.gd" type="Script" id=14]
 [ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=15]
 [ext_resource path="res://scripts/ui/settings/NoteMesh.gd" type="Script" id=16]
-[ext_resource path="res://scripts/ui/settings/CursorScale.gd" type="Script" id=17]
 [ext_resource path="res://scripts/ui/settings/Profiles.gd" type="Script" id=18]
 [ext_resource path="res://scripts/ui/settings/CameraPresets.gd" type="Script" id=19]
 [ext_resource path="res://scripts/ui/settings/SaveSettings.gd" type="Script" id=20]
-[ext_resource path="res://scripts/ui/settings/HitWindow.gd" type="Script" id=21]
-[ext_resource path="res://scripts/ui/settings/Sensitivity.gd" type="Script" id=22]
 [ext_resource path="res://scripts/ui/settings/VSync.gd" type="Script" id=23]
-[ext_resource path="res://scripts/ui/settings/ApproachRate.gd" type="Script" id=24]
-[ext_resource path="res://scripts/ui/settings/MusicOffset.gd" type="Script" id=25]
 [ext_resource path="res://assets/images/tiles.png" type="Texture" id=26]
 [ext_resource path="res://scripts/ui/settings/Fullscreen.gd" type="Script" id=27]
-[ext_resource path="res://scripts/ui/settings/Parallax.gd" type="Script" id=28]
 [ext_resource path="res://scripts/ui/settings/ColorSet.gd" type="Script" id=29]
-[ext_resource path="res://scripts/ui/settings/SpawnDist.gd" type="Script" id=30]
-[ext_resource path="res://scripts/ui/settings/Glow.gd" type="Script" id=31]
 [ext_resource path="res://assets/font/NotoColorEmoji.ttf" type="DynamicFontData" id=32]
-[ext_resource path="res://scripts/ui/settings/UIParallax.gd" type="Script" id=33]
-[ext_resource path="res://scripts/ui/settings/GridParallax.gd" type="Script" id=34]
 [ext_resource path="res://scripts/ui/settings/MissEffect.gd" type="Script" id=35]
-[ext_resource path="res://scripts/ui/settings/ArchiveConvert.gd" type="Script" id=36]
-[ext_resource path="res://scripts/ui/settings/FadeLength.gd" type="Script" id=37]
 [ext_resource path="res://assets/images/ui/placeholder.jpg" type="Texture" id=38]
-[ext_resource path="res://scripts/ui/settings/fov.gd" type="Script" id=39]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=40]
-[ext_resource path="res://scripts/ui/settings/Bloom.gd" type="Script" id=41]
 [ext_resource path="res://scripts/ui/settings/UpdateCheck.gd" type="Script" id=42]
 [ext_resource path="res://assets/images/branding/sspicon.png" type="Texture" id=43]
-[ext_resource path="res://scripts/ui/settings/NoteScale.gd" type="Script" id=44]
 [ext_resource path="res://scripts/ui/settings/ReplaceCustomFile.gd" type="Script" id=45]
-[ext_resource path="res://scripts/ui/settings/HitFOVAmplifier.gd" type="Script" id=47]
 [ext_resource path="res://assets/images/error.jpg" type="Texture" id=48]
-[ext_resource path="res://scripts/ui/settings/HitFOVDecay.gd" type="Script" id=49]
 [ext_resource path="res://scripts/ui/settings/SettingsNumberBox.gd" type="Script" id=50]
 [ext_resource path="res://scripts/ui/settings/SettingsColorPicker.gd" type="Script" id=51]
-[ext_resource path="res://scripts/ui/settings/TrailTime.gd" type="Script" id=52]
-[ext_resource path="res://scripts/ui/settings/TrailDetail.gd" type="Script" id=53]
 [ext_resource path="res://scripts/ui/settings/SettingsCheckbox.gd" type="Script" id=54]
-[ext_resource path="res://scripts/ui/settings/ToAvEditor.gd" type="Script" id=55]
 [ext_resource path="res://scripts/ui/settings/ColorPresets.gd" type="Script" id=56]
 [ext_resource path="res://scripts/ui/settings/HitFOVModes.gd" type="Script" id=57]
 [ext_resource path="res://scripts/ui/settings/EnumDropdownMenu.gd" type="Script" id=58]
@@ -60,9 +38,7 @@
 [ext_resource path="res://scripts/ui/settings/TargetFPS.gd" type="Script" id=60]
 [ext_resource path="res://scripts/ui/settings/NoteSpin.gd" type="Script" id=61]
 [ext_resource path="res://scripts/ui/settings/CursorTrailType.gd" type="Script" id=62]
-[ext_resource path="res://scripts/ui/settings/NoteOpacity.gd" type="Script" id=63]
 [ext_resource path="res://scripts/ui/settings/ReplayIntro.gd" type="Script" id=64]
-[ext_resource path="res://scripts/ui/settings/LockMouseResize.gd" type="Script" id=65]
 [ext_resource path="res://scripts/ui/settings/ReplayLimit.gd" type="Script" id=67]
 [ext_resource path="res://scripts/ui/settings/ReplayMode.gd" type="Script" id=68]
 
@@ -270,18 +246,9 @@ theme = ExtResource( 1 )
 text = "Open Replay Folder"
 script = ExtResource( 14 )
 
-[node name="ArchiveConvert" type="Button" parent="TopButtons/TopButtonsHBox"]
-margin_left = 560.0
-margin_right = 785.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 225, 0 )
-theme = ExtResource( 1 )
-text = "Convert SS archive to .sspm"
-script = ExtResource( 36 )
-
 [node name="ReloadContent" type="Button" parent="TopButtons/TopButtonsHBox"]
-margin_left = 795.0
-margin_right = 935.0
+margin_left = 560.0
+margin_right = 700.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 140, 0 )
 theme = ExtResource( 1 )
@@ -289,8 +256,8 @@ text = "Reload Content"
 script = ExtResource( 59 )
 
 [node name="CheckForUpdate" type="Button" parent="TopButtons/TopButtonsHBox"]
-margin_left = 945.0
-margin_right = 1085.0
+margin_left = 710.0
+margin_right = 850.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 140, 0 )
 theme = ExtResource( 1 )
@@ -355,71 +322,6 @@ flat = true
 script = ExtResource( 54 )
 target = "disable_pausing"
 
-[node name="CustomSpeed" type="HBoxContainer" parent="TabContainer/Gameplay/Modifiers/Group/H"]
-visible = false
-margin_top = 32.0
-margin_right = 345.0
-margin_bottom = 64.0
-hint_tooltip = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)"
-custom_constants/separation = 10
-
-[node name="CustomSpeed2" type="SpinBox" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-rect_pivot_offset = Vector2( 286, 872 )
-focus_mode = 2
-theme = ExtResource( 1 )
-min_value = 5.0
-max_value = 1000.0
-step = 0.01
-value = 100.0
-allow_greater = true
-suffix = "%"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed"]
-margin_left = 210.0
-margin_top = 6.0
-margin_right = 345.0
-margin_bottom = 26.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Custom Speed Rate"
-align = 2
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="VSeparator" type="VSeparator" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed"]
-visible = false
-margin_left = 347.0
-margin_right = 354.0
-margin_bottom = 32.0
-custom_constants/separation = 7
-
-[node name="Desc" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/CustomSpeed"]
-visible = false
-margin_left = 347.0
-margin_top = 7.0
-margin_right = 913.0
-margin_bottom = 24.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "[default 100%] used by the custom speed modifier (speed+ mods are 115, 125, 135, and 145)"
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="SEPARATOR" type="HSeparator" parent="TabContainer/Gameplay/Modifiers/Group/H"]
 margin_top = 32.0
 margin_right = 288.0
@@ -449,6 +351,8 @@ script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+target = "note_hitbox_size"
+string_cast = true
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/NoteHitboxSize"]
 margin_left = 204.0
@@ -501,10 +405,11 @@ theme = ExtResource( 1 )
 max_value = 1000.0
 value = 55.0
 suffix = "ms"
-script = ExtResource( 21 )
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
+target = "hitwindow_ms"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Modifiers/Group/H/HitWindow"]
 margin_left = 204.0
@@ -625,7 +530,8 @@ step = 0.001
 value = 1.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 22 )
+script = ExtResource( 6 )
+target = "sensitivity"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Sensitivity"]
 margin_left = 204.0
@@ -712,7 +618,8 @@ step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 65 )
+script = ExtResource( 6 )
+target = "absolute_scale"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/LockMouseResize"]
 margin_left = 204.0
@@ -787,7 +694,8 @@ step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 28 )
+script = ExtResource( 6 )
+target = "parallax"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/Parallax"]
 margin_left = 204.0
@@ -841,7 +749,8 @@ step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 33 )
+script = ExtResource( 6 )
+target = "ui_parallax"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/UIParallax"]
 margin_left = 204.0
@@ -888,7 +797,8 @@ step = 0.01
 value = 1.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 34 )
+script = ExtResource( 6 )
+target = "grid_parallax"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/GridParallax"]
 margin_left = 204.0
@@ -969,7 +879,8 @@ focus_mode = 2
 theme = ExtResource( 1 )
 step = 0.01
 allow_greater = true
-script = ExtResource( 12 )
+script = ExtResource( 6 )
+target = "edge_drift"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/EdgeBuffer"]
 margin_left = 204.0
@@ -1051,7 +962,8 @@ step = 0.01
 value = 70.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 39 )
+script = ExtResource( 6 )
+target = "fov"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/FOV"]
 margin_left = 204.0
@@ -1152,7 +1064,8 @@ step = 0.01
 value = 2.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 47 )
+script = ExtResource( 6 )
+target = "hit_fov_amplifier"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVAmplifier"]
 margin_left = 204.0
@@ -1188,7 +1101,8 @@ step = 0.01
 value = 20.0
 allow_greater = true
 allow_lesser = true
-script = ExtResource( 49 )
+script = ExtResource( 6 )
+target = "hit_fov_decay"
 
 [node name="Label" type="Label" parent="TabContainer/Gameplay/Camera/Group/H/HitFOVDecay2"]
 margin_left = 204.0
@@ -1452,7 +1366,8 @@ value = 1.0
 allow_greater = true
 allow_lesser = true
 suffix = "x"
-script = ExtResource( 44 )
+script = ExtResource( 6 )
+target = "note_size"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteScale"]
 margin_left = 204.0
@@ -1597,7 +1512,10 @@ value = 100.0
 allow_greater = true
 allow_lesser = true
 suffix = "%"
-script = ExtResource( 63 )
+script = ExtResource( 6 )
+target = "note_opacity"
+multiplier = 100.0
+clamp_enabled = true
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/NoteOpacity"]
 margin_left = 204.0
@@ -1639,7 +1557,8 @@ value = 40.0
 allow_greater = true
 allow_lesser = true
 suffix = "m/s"
-script = ExtResource( 24 )
+script = ExtResource( 6 )
+target = "approach_rate"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/ApproachRate"]
 margin_left = 204.0
@@ -1673,7 +1592,8 @@ step = 0.01
 value = 40.0
 allow_greater = true
 suffix = "m"
-script = ExtResource( 30 )
+script = ExtResource( 6 )
+target = "spawn_distance"
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/SpawnDist"]
 margin_left = 204.0
@@ -1704,7 +1624,9 @@ theme = ExtResource( 1 )
 step = 0.01
 value = 50.0
 suffix = "%"
-script = ExtResource( 37 )
+script = ExtResource( 6 )
+target = "fade_length"
+multiplier = 100.0
 
 [node name="Label" type="Label" parent="TabContainer/Notes/Notes/Group/H/FadeLength"]
 margin_left = 204.0
@@ -2281,7 +2203,8 @@ focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 10.0
 step = 0.1
-script = ExtResource( 31 )
+script = ExtResource( 6 )
+target = "glow"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Glow"]
 margin_left = 204.0
@@ -2312,7 +2235,8 @@ focus_mode = 2
 theme = ExtResource( 1 )
 max_value = 10.0
 step = 0.1
-script = ExtResource( 41 )
+script = ExtResource( 6 )
+target = "bloom"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/World/Group/H/Bloom"]
 margin_left = 204.0
@@ -2532,7 +2456,8 @@ theme = ExtResource( 1 )
 step = 0.01
 value = 1.0
 allow_greater = true
-script = ExtResource( 17 )
+script = ExtResource( 6 )
+target = "cursor_scale"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorScale"]
 margin_left = 204.0
@@ -2567,7 +2492,8 @@ step = 0.01
 allow_greater = true
 allow_lesser = true
 suffix = "°/sec"
-script = ExtResource( 10 )
+script = ExtResource( 6 )
+target = "cursor_spin"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/CursorSpin"]
 margin_left = 204.0
@@ -2682,7 +2608,8 @@ min_value = 2.0
 max_value = 9.22337e+18
 value = 10.0
 allow_greater = true
-script = ExtResource( 53 )
+script = ExtResource( 6 )
+target = "trail_detail"
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailDetail"]
 margin_left = 204.0
@@ -2716,7 +2643,9 @@ max_value = 1e+12
 step = 0.0
 value = 0.15
 allow_greater = true
-script = ExtResource( 52 )
+script = ExtResource( 6 )
+target = "trail_time"
+string_cast = true
 
 [node name="Label" type="Label" parent="TabContainer/World & Cursor/Cursor/Group/H/TrailTime"]
 margin_left = 204.0
@@ -5209,7 +5138,8 @@ max_value = 300.0
 allow_greater = true
 allow_lesser = true
 suffix = "ms"
-script = ExtResource( 25 )
+script = ExtResource( 6 )
+target = "music_offset"
 
 [node name="Label" type="Label" parent="TabContainer/Video & Audio/Audio/Group/H/MusicOffset"]
 margin_left = 204.0
@@ -5602,50 +5532,6 @@ text = "Show Extensive Stats"
 flat = true
 script = ExtResource( 54 )
 target = "show_stats"
-
-[node name="Avatar" type="Control" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
-visible = false
-margin_top = 173.0
-margin_right = 827.0
-margin_bottom = 205.0
-rect_min_size = Vector2( 200, 32 )
-
-[node name="Editor" type="Button" parent="TabContainer/Replays & Misc/Experimental/Group/H/Avatar"]
-margin_right = 200.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 200, 32 )
-theme = ExtResource( 1 )
-custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
-custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
-text = "Go to editor [ALPHA]"
-script = ExtResource( 55 )
-
-[node name="Label" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Avatar/Editor"]
-margin_left = -162.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 3 )
-text = "Player Avatar"
-align = 2
-valign = 1
-clip_text = true
-
-[node name="Desc" type="Label" parent="TabContainer/Replays & Misc/Experimental/Group/H/Avatar/Editor"]
-margin_left = 215.0
-margin_right = 578.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.690196, 0.690196, 0.690196, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
-custom_fonts/font = SubResource( 4 )
-text = "literally you | experimental avatar editor. nowhere near done. visible in replays"
-valign = 1
 
 [node name="Intro" type="HBoxContainer" parent="TabContainer/Replays & Misc/Experimental/Group/H"]
 margin_top = 173.0
