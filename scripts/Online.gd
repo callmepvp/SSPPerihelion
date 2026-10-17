@@ -1,3 +1,4 @@
+#Online.gd
 extends Node
 
 # https://cdn.rhythia.net/index.json
@@ -8,8 +9,6 @@ var map_registry:Registry
 
 signal db_maps_done
 signal map_downloaded
-
-signal _httpreq_finished
 
 var mapdl_hr:HTTPRequest = HTTPRequest.new()
 var mapdl_bs:float = 1
@@ -134,7 +133,7 @@ func load_db_maps():
 	
 	if !ProjectSettings.get_setting("application/networking/enabled"):
 		pass # 011-865
-	elif mapdb_api == "" || mapdb_api.begins_with("http://localhost") && !OS.has_feature("debug"):
+	elif mapdb_api == "" || (mapdb_api.begins_with("http://localhost") && !OS.has_feature("debug")):
 		show_db_error("Map database is improperly configured.","Map Database Error")
 		yield(self,"error_done")
 	elif !Globals.is_valid_url(mapdb_api):
@@ -297,7 +296,7 @@ var latest_version_data
 signal latest_version
 var version_hr:HTTPRequest = HTTPRequest.new()
 func check_latest_version():
-	if !(OS.has_feature("Windows") or OS.has_feature("X11")) or !ProjectSettings.get_setting("application/networking/enabled"):
+	if !OS.has_feature("Windows") or !ProjectSettings.get_setting("application/networking/enabled"):
 		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
 		return
 	var github_url = "https://api.github.com/repos/%s/releases/latest"
@@ -317,7 +316,6 @@ var update_hr:HTTPRequest = HTTPRequest.new()
 func attempt_update():
 	var asset
 	var asset_name = "windows.zip"
-	if OS.has_feature("X11"): asset_name = "linux.zip"
 	for _asset in latest_version_data.assets:
 		if _asset.name == asset_name:
 			asset = _asset
@@ -353,6 +351,7 @@ func _on_update_request_completed(result:int,response_code:int,headers:PoolStrin
 	emit_signal("_update_req",[result,response_code])
 
 func _ready():
+	randomize()
 	add_child(netmaps_hr)
 	netmaps_hr.use_threads = true
 	netmaps_hr.timeout = 80
@@ -396,9 +395,6 @@ func show_db_error(body:String,title:String):
 const MODULO_8_BIT = 256
 
 static func getRandomInt():
-  # Randomize every time to minimize the risk of collisions
-  randomize()
-
   return randi() % MODULO_8_BIT
 
 static func uuidbin():

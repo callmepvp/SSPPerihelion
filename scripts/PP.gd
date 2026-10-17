@@ -1,3 +1,4 @@
+#PP.gd
 extends Node
 
 const SAVE_PATH = "user://pp_scores.json"

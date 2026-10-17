@@ -1,3 +1,4 @@
+#Rythia.gd
 extends Node
 
 onready var rootg = get_tree().root
@@ -616,7 +617,6 @@ var disable_update:bool = false
 var legacy_music:bool = false
 var render_scale:float = 1
 var ensure_hitsync:bool = false
-var hitsync_offset:float = 0 # don't save this yet; probably not even a necessary setting
 var retain_song_pitch:bool = false # not recommended as this is very heavy to compute, but people want it
 var show_stats:bool = false
 var hit_pitch:bool = false
@@ -1341,7 +1341,6 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 		if sv >= 43:
 			score_popup = bool(file.get_8())
 			billboard_score = bool(file.get_8())
-			if (OS.has_feature("Android")): mirror_buttons = bool(file.get_8())
 		if sv >= 44:
 			fov = float(file.get_32())
 			hit_fov = bool(file.get_8())
@@ -1932,7 +1931,6 @@ func do_init(_ud=null):
 	emit_signal("init_stage_reached","Init filesystem")
 	emit_signal("init_stage_num",-1)
 	yield(get_tree(),"idle_frame")
-	if OS.has_feature("Android"): OS.request_permissions()
 	var user_dir = Globals.p("user://")
 	if user_dir == "RETRY":
 		yield(get_tree().create_timer(7),"timeout")
@@ -1971,8 +1969,7 @@ func do_init(_ud=null):
 		err = file.open(Globals.p("user://install_path.txt"),File.WRITE)
 		if err == OK:
 			file.store_string(OS.get_executable_path())
-
-
+			file.close()
 
 	# set up registries
 	emit_signal("init_stage_reached","Init registries")
@@ -2067,7 +2064,7 @@ func do_init(_ud=null):
 				errorstr = "song load failed with message '%s'" % result
 				get_tree().change_scene("res://scenes/errors/cmdline.tscn")
 				return
-		Rhythia.selected_song = song
+		self.selected_song = song
 	else:
 		var cache_version:int = 2
 		var caches:Dictionary = {}
@@ -2235,7 +2232,7 @@ func do_init(_ud=null):
 
 	# check for updates
 	if !disable_update:
-		if (OS.has_feature("Windows") or OS.has_feature("X11")) and !OS.has_feature("editor"):
+		if OS.has_feature("Windows") and !OS.has_feature("editor"):
 			emit_signal("init_stage_reached","Check for updates")
 			emit_signal("init_stage_num",-1)
 			yield(get_tree(),"idle_frame")
@@ -2349,7 +2346,7 @@ func do_init(_ud=null):
 		Globals.confirm_prompt.s_next.play()
 		Globals.confirm_prompt.close()
 		yield(Globals.confirm_prompt,"done_closing")
-	if should_ask_about_replays and not OS.has_feature("Android"):
+	if should_ask_about_replays:
 		emit_signal("init_stage_reached","Setup")
 		if !alert_snd_played: Globals.confirm_prompt.s_alert.play()
 		alert_snd_played = true

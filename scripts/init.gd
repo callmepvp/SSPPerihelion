@@ -1,3 +1,4 @@
+#init.gd
 extends Node
 
 var thread:Thread = Thread.new()
@@ -24,10 +25,8 @@ func _ready():
 	black_fade = 1
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Rhythia.connect("init_stage_reached",self,"stage")
-	var s = Globals.error_sound
-	OS.request_permissions()
 	yield(get_tree().create_timer(0.5),"timeout")
-	if ProjectSettings.get_setting("application/config/auto_maximize") and Rhythia.auto_maximize: OS.window_maximized = true
+	if Rhythia.auto_maximize: OS.window_maximized = true
 	yield(get_tree().create_timer(0.5),"timeout")
 
 	if not Rhythia.is_init:

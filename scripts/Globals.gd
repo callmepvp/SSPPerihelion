@@ -1,3 +1,4 @@
+# Globals.gd
 extends Node
 
 onready var rootg = get_tree().root
@@ -653,11 +654,7 @@ func _ready():
 		if !decode.error:
 			disable_intro = decode.result.has("disable_intro") and decode.result.disable_intro
 	if !disable_intro: get_tree().call_deferred("change_scene","res://scenes/Intro.tscn")
-
-	url_regex.compile(
-		"((https?)://)[\\w\\-.]{2,256}(:\\d{1,5})?(/[\\w@:%._\\-+~&=]+)+/?"
-	)
-
+	
 	confirm_prompt = load("res://prefabs/menu/confirm.tscn").instance()
 	rootg.call_deferred("add_child",confirm_prompt)
 
