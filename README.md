@@ -1,117 +1,119 @@
-# Sound Space Plus
-> "Rhyt-Rhythmia"
->
-> - Edward "BTMC" Ling, 2024
 
-> [!CAUTION]
-> CAPO Games and rhythia.com are not affiliated nor supported by us! We do, however, support any modification of our logos/content in the client source because of our [license](https://github.com/David20122/sound-space-plus/blob/nightly/LICENSE.txt)!
 
-While you're here, join our discord in [here](https://discord.gg/rhythia)
+# Sound Space Plus: Perihelion Rewrite
 
-# Table of contents
-(Stuff you will see in this README)
+### Sound Space Plus Plus, technically.
 
-- [Downloading the game](#dl)
-    - [Important info before Downloading](#dl-imp)
-        - [Windows](#dl-win)
-        - [Linux](#dl-penguin)
-        - [Android](#dl-phone)
-    - [Making SSP executable on Linux](#dl-linuxfix)
-- [Troubleshooting](#tr)
-- [User Folder location](#usr)
-- [Updating the game](#upd)
-- [Developer zone](#dev)
+A stripped-down, Windows-only fork of the classic **Sound Space Plus**.
 
-# Downloading and playing the game <a href="#dl-title" id="dl"/>
+![Godot 3](https://img.shields.io/badge/Godot-3.x-478cbf?logo=godot-engine&logoColor=white)
+![Platform](https://img.shields.io/badge/platform-Windows-0078d4)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-work%20in%20progress-orange)
 
-## IMPORTANT! <a href="#dl-main" id="dl-imp"/>
+## Why this exists
 
-- There's no point in git cloning this repository.
+Sound Space Plus used to have online servers that calculated performance points. Those servers are
+gone, and with them went pp. The game itself is open source, so this fork rebuilds the missing piece
+on the client:
 
-  - Head to the [releases tab](https://github.com/David20122/sound-space-plus/releases) to Download this game.
+- no accounts, no server, no network needed
+- a difficulty algorithm that reads the notes of **any** map
+- a pp formula in the spirit of osu!, with weighted top plays
+- scores saved on your own machine
 
-- As of the Apr16 Update, Androids don't have a User Folder, this is temporary and will be changed in the future.
+It is also a cleanup project: remove everything we do not need, keep the game small and readable,
+and make it a good base to build on (and eventually port to a newer Godot engine).
 
-### For Windows users: <a href="#dl-main" id="dl-win"/>
+## Features
 
-- In [releases](https://github.com/David20122/sound-space-plus/releases), press on the `windows.zip` folder to download it
+| | |
+|---|---|
+| **Local pp** | Passing a map awards pp based on the map's difficulty, your accuracy, and your speed mod. A notification shows the result on the results screen. |
+| **Difficulty ratings** | Stars are computed from note positions and timing, so every map is rated, not just ones from a database. |
+| **Top plays page** | A new page in the sidebar shows your total pp and your top 10 plays (pp, weighted pp, accuracy, misses, speed, stars). |
+| **Max pp preview** | A card under the modifiers shows what 100% on the selected map would be worth at your current speed, your best on it, and how much it would raise your total. |
+| **Fair-play gating** | No pp with easier-than-default hitbox or hit window, Nofail, a start offset, replays, or queue mode. Failed runs award nothing. Might be changed a bit later. |
 
-- Once downloaded, do the following:
-  - Right click the folder and extract it to either a custom folder [RECOMMENDED] or the folder you downloaded to [NOT RECOMMENDED]. Alternatively, you can open the zip file and drag the contents inside to a custom folder.
-  - Run SoundSpacePlus.exe to play this, easy I know.
+Everything else (maps, mods, replays, settings, the menu) works like the original game.
 
-### For Linux users: <a href="#dl-main" id="dl-penguin"/>
+## What was removed
 
-- In [releases](https://github.com/David20122/sound-space-plus/releases), press on the `linux.zip` folder to download it
+Compared to upstream, this fork deliberately drops:
 
-- Once downloaded do the following:
-  - If you have a GUI File Explorer:
-    - In Downloads, right click and extract the files like on Windows OR open the zip and extract it
-  - If you don't have a GUI File Explorer:
-    - Download your game normally and `cd` to your Downloads folder (usually `cd ~/Downloads`)
-    - Inside your downloads folder type: `mkdir SSP && unzip linux.zip -d SSP/` to make a SSP directory and unzip linux.zip to that directory (REMEMBER TO INSTALL THE UNZIP PACKAGE USING YOUR PACKAGE MANAGER!!!)
-    
-### For Android Users: <a href="#dl-main" id="dl-phone"/>
+- Discord Rich Presence and the Discord SDK addon
+- VR support (OpenVR)
+- the native file dialog addon (the game's own file picker is used)
+- the legacy menu and its settings
+- the avatar system and other easter eggs
+- the online map database and the auto-updater (networking is disabled)
+- Android, macOS, Linux, and web code paths: **Windows only**
 
-- Download gles2 on older devices, or gles3 on newer devices
-- Install the apk on your phone
+## Building and running
 
-## If you can't execute your game on Linux <a href="#dl-trouble" id="dl-linuxfix"/>
+There are no release builds yet, so run it from source.
 
-- Open your terminal and do the following:
-```bash
-$ cd ~/DIRECTORY_OF_YOUR_SSP_FOLDER
-$ sudo chmod +x SoundSpacePlus.x86_64
-# Alternatively you can use
-# sudo chmod 777 SoundSpacePlus.x86.64
-```
+**Requirements**
 
-# Troubleshooting <a href="#tlsh-title" id="tr"/>
+- [Godot 3.x](https://godotengine.org/download/archive/) (use the same 3.x version as the upstream project)
+- [Git LFS](https://git-lfs.com/) for the large asset files
 
-As everything you download online, executing may or may not work.
+**Steps**
 
-- [WINDOWS ONLY] If the game closes by itself
-  - Download and install [vc_redist](https://aka.ms/vs/17/release/vc_redist.x64.exe)
-  - Open the game.
-  - If your game still doesn't work, head to the [Discord](https://discord.gg/ssp) and head to the support channel.
-  
-  
-# User folder location <a href="#usr-title" id="usr"/>
-
-- Windows:
-
-`%appdata%\SoundSpacePlus`
-
-- Linux:
-
-`~/.local/share/SoundSpacePlus`
-
-- Android:
-
-Currently not available (Apr16 update)
-
-### Alternatively you can access the user folder if you go into settings and press User Folder
-
-# Updating your game <a href="#upd-title" id="upd"/>
-
-As the time goes, we all have the necessity to update what's old correct?
-
-### Here's how you do it then.
-
-- Head to the [latest version of the game](https://github.com/David20122/sound-space-plus/releases/latest) and Download it
-- On the location where your folder is delete or replace every file inside it
-  - Keep in mind that you <ins>**__DON'T__**</ins> lose your passes, replays or maps when update the game, those are located in the [user folder](#usr)
-  - [Apr25 Update] Windows and Linux users now have an integrated auto-updater as of the Apr25 update. Android and MacOS auto-updaters will come soon. [Click here to access the latest releases with auto-updaters](https://github.com/krmeet/sound-space-plus/releases/latest)
-- And you're done. You are now up-to-date.
-
-# Development <a href="dev-title" id="dev"/>
-After cloning the repository download the Discord Game SDK and put the following files into addons/discord_game_sdk:  
-- `discord_game_sdk.dll`  
-- `discord_game_sdk.dylib`  
-- `discord_game_sdk.so` (__rename to `libdiscord_game_sdk.so`__)  
-
-Don't forget to fetch the big files that are missing using
 ```sh
-$ git lfs fetch --all
-$ git lfs pull
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
+cd YOUR_REPO
+git lfs fetch --all
+git lfs pull
 ```
+
+1. Open Godot 3 and import `project.godot`.
+2. Press **F5** to run.
+
+To make a distributable build, install the Godot 3 export templates and export with a Windows
+preset (**Project > Export**).
+
+> [TIP]
+> If you run from the editor, the game's own personal-best saving is skipped (it checks for a debug
+> build). pp saving is not affected.
+
+## Your data
+
+Saves keep the original folder name so existing settings and maps from Sound Space Plus carry over.
+
+| Item | Location |
+|---|---|
+| User folder | `%appdata%\SoundSpacePlus` |
+| Maps | `%appdata%\SoundSpacePlus\maps` |
+| Settings | `%appdata%\SoundSpacePlus\settings.json` |
+| Replays | `%appdata%\SoundSpacePlus\replays` |
+| **pp scores** | `%appdata%\SoundSpacePlus\pp_scores.json` |
+
+You can also open it from **Settings > Open User Folder**. To reset your pp, close the game and
+delete `pp_scores.json`.
+
+## Roadmap
+
+These are plans, not promises.
+
+- [ ] Calibrate the star rating against more maps. The current algorithm is insanely doodoo compared to what it could be
+- [ ] Continue removing unused scripts, scenes, and assets
+- [ ] Fully remove online-map leftovers. Potentially add online features back at a later date
+- [ ] Rebalance pp (length, accuracy curve, mod handling such as Hard Rock)
+- [ ] Better profile page (recent plays, pp history)
+- [ ] Port to the latest Godot Engine (impossible task)
+
+## Contributing
+
+Issues and pull requests are welcome. Please keep changes small and focused, and run the game before
+you open a PR. :)
+
+## Credits and license
+
+This project is built on **Sound Space Plus**, created by its original developers and contributors.
+See the in-game **Credits** page, and the upstream repository:
+[David20122/sound-space-plus](https://github.com/David20122/sound-space-plus).
+
+Maps and music belong to their respective creators.
+
+Licensed under the **MIT License**, same as upstream. See [`LICENSE`](LICENSE).
