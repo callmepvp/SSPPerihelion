@@ -1,3 +1,4 @@
+#Profiles
 extends MenuButton
 
 var profiles

@@ -1,3 +1,4 @@
+#MusicVolumeSetter
 extends AudioStreamPlayer
 
 var target_volume_db = Rhythia.music_volume_db

@@ -1,3 +1,4 @@
+#EnumDropdownMenu
 extends MenuButton
 
 export(Array,String) var options = []

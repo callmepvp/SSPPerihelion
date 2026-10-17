@@ -1,3 +1,4 @@
+#WorldSel
 extends MenuButton
 
 var worlds:Array = []

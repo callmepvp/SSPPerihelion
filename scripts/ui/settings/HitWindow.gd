@@ -1,3 +1,4 @@
+#HitWindow
 extends SpinBox
 
 func upd():

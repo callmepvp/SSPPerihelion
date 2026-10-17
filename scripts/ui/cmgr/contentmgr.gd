@@ -1,3 +1,4 @@
+#contentmgr
 extends Node
 
 func _ready():

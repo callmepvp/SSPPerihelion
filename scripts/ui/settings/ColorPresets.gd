@@ -1,3 +1,4 @@
+#ColorPresets
 extends MenuButton
 
 var presets = [

@@ -1,3 +1,4 @@
+#HitFOVAmplifier
 extends SpinBox
 
 func upd():

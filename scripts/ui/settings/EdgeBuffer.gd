@@ -1,3 +1,4 @@
+#EdgeBuffer
 extends SpinBox
 
 func upd():

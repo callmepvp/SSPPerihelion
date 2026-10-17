@@ -1,3 +1,4 @@
+#CursorSpin
 extends SpinBox
 
 func upd():

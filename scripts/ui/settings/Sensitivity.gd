@@ -1,3 +1,4 @@
+#Sensitivity
 extends SpinBox
 
 func upd():

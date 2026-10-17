@@ -1,3 +1,4 @@
+#TrailTime
 extends SpinBox
 
 func upd():

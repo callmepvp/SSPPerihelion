@@ -1,7 +1,11 @@
+#ReloadContent
 extends Button
 
 var has_been_pressed:bool = false
+
 func _pressed():
+	if has_been_pressed: return
+	has_been_pressed = true
 	Globals.confirm_prompt.open(
 		"Are you sure? This will clear temporary maps!",
 		"Reload All Content",
@@ -22,3 +26,4 @@ func _pressed():
 		get_tree().change_scene("res://scenes/init.tscn")
 	else:
 		Globals.confirm_prompt.s_back.play()
+		has_been_pressed = false

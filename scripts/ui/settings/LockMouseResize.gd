@@ -1,3 +1,4 @@
+#LockMouseResize
 extends SpinBox
 
 func upd():

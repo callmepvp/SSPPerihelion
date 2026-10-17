@@ -1,3 +1,4 @@
+#ApproachRate
 extends SpinBox
 
 func upd():

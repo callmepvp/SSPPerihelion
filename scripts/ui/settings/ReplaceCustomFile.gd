@@ -1,3 +1,4 @@
+#ReplaceCustomFile
 extends Button
 var dir:Directory = Directory.new()
 

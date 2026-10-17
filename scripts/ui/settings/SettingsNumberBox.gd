@@ -1,3 +1,4 @@
+#SettingsNumberBox
 extends SpinBox
 
 export(String) var target

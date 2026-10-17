@@ -1,3 +1,4 @@
+#InvertMouse
 extends CheckBox
 
 func _process(_d):

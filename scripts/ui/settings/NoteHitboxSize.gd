@@ -1,3 +1,4 @@
+#NoteHitboxSize
 extends SpinBox
 
 func upd():

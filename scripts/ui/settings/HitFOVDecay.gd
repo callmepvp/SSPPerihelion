@@ -1,3 +1,4 @@
+#HITFOVDecay
 extends SpinBox
 
 func upd():

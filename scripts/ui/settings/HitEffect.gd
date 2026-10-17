@@ -1,3 +1,4 @@
+#HitEffect
 extends MenuButton
 
 var effects:Array = []

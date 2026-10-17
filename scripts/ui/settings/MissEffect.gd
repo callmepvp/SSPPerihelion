@@ -1,3 +1,4 @@
+#MissEffect
 extends MenuButton
 
 var effects:Array = []

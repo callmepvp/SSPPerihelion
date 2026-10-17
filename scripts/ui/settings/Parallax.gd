@@ -1,3 +1,4 @@
+#Parallax
 extends SpinBox
 
 func upd():

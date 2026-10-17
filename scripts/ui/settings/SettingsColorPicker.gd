@@ -1,3 +1,4 @@
+#SettingsColorPicker
 extends ColorPickerButton
 
 export(String) var target

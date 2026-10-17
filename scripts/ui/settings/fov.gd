@@ -1,3 +1,4 @@
+#fov
 extends SpinBox
 
 func upd():

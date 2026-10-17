@@ -1,3 +1,4 @@
+#Fullscreen
 extends CheckBox
 
 func _pressed():
@@ -5,6 +6,6 @@ func _pressed():
 		OS.window_fullscreen = pressed
 
 func _ready():
-	visible = OS.has_feature("pc")
-#	OS.window_fullscreen = true
-#	pressed = true
+	visible = true
+	# keep checkbox in sync if fullscreen is toggled elsewhere (F11, etc.)
+	pressed = OS.window_fullscreen

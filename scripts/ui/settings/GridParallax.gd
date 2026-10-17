@@ -1,3 +1,4 @@
+#GridParallax
 extends SpinBox
 
 func upd():

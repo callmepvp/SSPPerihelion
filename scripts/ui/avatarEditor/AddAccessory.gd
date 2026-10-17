@@ -1,3 +1,4 @@
+#AddAccessory
 extends Button
 
 func _pressed():

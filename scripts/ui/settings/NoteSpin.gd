@@ -1,3 +1,4 @@
+#NoteSpin
 extends SpinBox
 
 func upd():

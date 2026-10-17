@@ -1,3 +1,4 @@
+#AccessoryList
 extends ItemList
 
 

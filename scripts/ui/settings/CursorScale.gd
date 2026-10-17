@@ -1,3 +1,4 @@
+#CursorScale
 extends SpinBox
 
 func upd():

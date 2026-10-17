@@ -1,3 +1,4 @@
+#CustomSpeed
 extends SpinBox
 
 func upd():

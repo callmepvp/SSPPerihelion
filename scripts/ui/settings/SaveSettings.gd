@@ -1,3 +1,4 @@
+#SaveSettings
 extends Button
 
 func _pressed():

@@ -1,3 +1,4 @@
+#TrailDetail
 extends SpinBox
 
 func upd():

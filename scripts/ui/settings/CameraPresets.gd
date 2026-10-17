@@ -1,3 +1,4 @@
+#CameraPresets
 extends MenuButton
 
 var presets = [

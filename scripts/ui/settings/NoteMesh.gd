@@ -1,3 +1,4 @@
+#NoteMesh
 extends MenuButton
 
 var meshes:Array = []

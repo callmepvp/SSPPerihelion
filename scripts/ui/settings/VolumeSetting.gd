@@ -1,3 +1,4 @@
+#VolumeSetting
 extends Control
 
 export(String) var target_bus
@@ -13,12 +14,10 @@ func update_db(db:float):
 
 func update_from_percent(_v=null):
 	if !updating:
-		print("updating from percent")
 		update_db(linear2db($percent.value / 100))
 
 func update_from_db(_v=null):
 	if !updating:
-		print("updating from db")
 		update_db($db.value)
 
 func _ready():

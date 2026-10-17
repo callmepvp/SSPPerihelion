@@ -1,3 +1,4 @@
+#SettingsGroup
 extends VBoxContainer
 
 export(bool) var start_open = false

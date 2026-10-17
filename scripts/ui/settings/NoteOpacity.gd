@@ -1,3 +1,4 @@
+#NoteOpacity
 extends SpinBox
 
 func upd():

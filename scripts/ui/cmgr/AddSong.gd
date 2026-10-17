@@ -1,3 +1,4 @@
+#AddSong
 extends Panel
 
 var dir:Directory = Directory.new()
@@ -65,7 +66,7 @@ func check_txt(txt:String,is_raw:bool=false):
 		song.loadRawData(txt)
 		$TxtFile/H/data/Info.set("custom_colors/font_color",Color(0.5,1,0.5))
 		if txt.length() > 25: $TxtFile/H/data/Info.text = txt.substr(0,25) + "..."
-		else: $Label.text = txt
+		else: $TxtFile/H/data/Info.text = txt
 		$TxtFile/H/data/text.text = txt
 		check_txt_requirements()
 	else:
@@ -112,8 +113,6 @@ func reset_text_edit_screen():
 		"mapper"
 	)
 	song.songType = Globals.MAP_TXT
-	print(Globals.MAP_TXT)
-	print(song.songType)
 	$TxtFile/H/data.rect_min_size.y = 60
 	$TxtFile/H/data/file.visible = true
 	$TxtFile/H/data/paste.visible = true
@@ -293,19 +292,14 @@ func import_vulnus_folder():
 	
 	dir.open(path)
 	if !dir.file_exists("meta.json"):
-		print("Possible nested folder - searching for meta.json AAAAAAAAAAAAAAAAAAAA")
 		yield(get_tree(),"idle_frame")
-		print('list_dir_begin before')
 		dir.list_dir_begin()
 		var n = dir.get_next()
-		while n:
-			n = dir.get_next()
-			print(n)
-			if dir.file_exists(n.plus_file("meta.json")):
-				print("Found meta.json in '%s'" % n)
-				yield(get_tree(),"idle_frame")
+		while n != "":
+			if dir.current_is_dir() and dir.file_exists(path.plus_file(n).plus_file("meta.json")):
 				path = path.plus_file(n)
 				break
+			n = dir.get_next()
 		dir.list_dir_end()
 		if path == Globals.p("user://temp"): # Meta.json wasn't found anywhere
 			print("couldn't find meta.json")

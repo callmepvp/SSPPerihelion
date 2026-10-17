@@ -1,3 +1,4 @@
+#UIParallax
 extends SpinBox
 
 func upd():

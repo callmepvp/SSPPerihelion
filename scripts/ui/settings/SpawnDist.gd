@@ -1,3 +1,4 @@
+#SpawnDist
 extends SpinBox
 
 func upd():

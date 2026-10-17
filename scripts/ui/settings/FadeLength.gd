@@ -1,3 +1,4 @@
+#FadeLength
 extends SpinBox
 
 func upd():

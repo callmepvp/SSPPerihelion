@@ -1,3 +1,4 @@
+#TargetFPS
 extends SpinBox
 
 func upd():

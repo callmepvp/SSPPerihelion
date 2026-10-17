@@ -1,3 +1,4 @@
+#VSync
 extends CheckBox
 
 func _pressed():

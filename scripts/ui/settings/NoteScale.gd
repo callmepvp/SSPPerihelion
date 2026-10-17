@@ -1,3 +1,4 @@
+#NoteScale
 extends SpinBox
 
 func upd():

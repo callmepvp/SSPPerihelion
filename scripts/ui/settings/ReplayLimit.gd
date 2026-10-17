@@ -1,3 +1,4 @@
+#ReplayLimit
 extends OptionButton
 
 func upd(value):
