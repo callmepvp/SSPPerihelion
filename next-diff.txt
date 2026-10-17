@@ -1,7 +1,0 @@
-README.md
-scripts/PP.gd
-scripts/Rhythia.gd
-scripts/game/Game.gd
-scripts/game/NoteManager.gd
-scripts/ui/menu/MaxPPPanel.gd
-scripts/ui/menu/PerformancePage.gd
