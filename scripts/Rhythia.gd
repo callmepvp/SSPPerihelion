@@ -397,50 +397,10 @@ func console_cmd_error(body:String):
 	yield(Globals.confirm_prompt,"option_selected")
 	Globals.confirm_prompt.s_back.play()
 	Globals.confirm_prompt.close()
+	
 func update_rpc_song(): # Discord RPC
-	if !ProjectSettings.get_setting("application/config/discord_rpc") or selected_song == null: return
-	var txt = ""
-	var mods = []
-	if mod_nofail: mods.append("Nofail")
-	if mod_speed_level != Globals.SPEED_NORMAL:
-		match mod_speed_level:
-			Globals.SPEED_MMM: mods.append("Speed---")
-			Globals.SPEED_MM: mods.append("Speed--")
-			Globals.SPEED_M: mods.append("Speed-")
-			Globals.SPEED_P: mods.append("Speed+")
-			Globals.SPEED_PP: mods.append("Speed++")
-			Globals.SPEED_PPP: mods.append("Speed+++")
-			Globals.SPEED_PPPP: mods.append("Speed++++")
-			Globals.SPEED_CUSTOM: mods.append("Speed %s%%" % [Globals.speed_multi[Globals.SPEED_CUSTOM] * 100])
-	if mod_sudden_death: mods.append("SuddenDeath")
-	if mod_extra_energy: mods.append("Energy+")
-	if mod_no_regen: mods.append("NoRegen")
-	if mod_mirror_x or mod_mirror_y:
-		var mirrorst = "Mirror"
-		if Rhythia.mod_mirror_x: mirrorst += "X"
-		if Rhythia.mod_mirror_y: mirrorst += "Y"
-		mods.append(mirrorst)
-	if mod_ghost: mods.append("Ghost")
-	if mod_flashlight: mods.append("Flashlight")
-	if mod_nearsighted: mods.append("Nearsight")
-	if mod_hardrock: mods.append("Hard Rock")
-	if replay.autoplayer: mods.append("Auto")
-
-	if mods.size() == 0: txt = "No modifiers"
-	else:
-		for i in range(mods.size()):
-			if i != 0: txt += ", "
-			txt += mods[i]
-
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_state(txt)
-	activity.set_details(selected_song.name)
-
-	var assets = activity.get_assets()
-	assets.set_large_image("icon-bg")
-
-	Discord.activity_manager.update_activity(activity)
+	pass
+	
 func get_stream_with_default(path:String,default:AudioStream) -> AudioStream:
 	path = Globals.p(path)
 	var file:File = File.new()

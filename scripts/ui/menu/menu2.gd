@@ -1,17 +1,5 @@
 extends Node
 
-func idle_status():
-	# after 5 min on the menu switch to "listening to music"
-	var activity = Discord.Activity.new()
-	activity.set_type(Discord.ActivityType.Playing)
-	activity.set_details("Main Menu")
-	activity.set_state("Listening to music")
-
-	var assets = activity.get_assets()
-	assets.set_large_image("icon-bg")
-	
-	Discord.activity_manager.update_activity(activity)
-
 func _ready():
 	get_tree().paused = false
 	if Rhythia.arcw_mode:
@@ -20,28 +8,16 @@ func _ready():
 		get_tree().change_scene("res://sex.tscn")
 	if Rhythia.memory_lane:
 		get_tree().change_scene("res://dya.tscn")
-	
+
 	# fix audio pitchshifts
 	if AudioServer.get_bus_effect_count(AudioServer.get_bus_index("Music")) > 0:
 		AudioServer.remove_bus_effect(AudioServer.get_bus_index("Music"),0)
-	
+
 	$BlackFade.visible = true
 	$BlackFade.color = Color(0,0,0,black_fade)
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
-	if ProjectSettings.get_setting("application/config/discord_rpc"):
-		var activity = Discord.Activity.new()
-		activity.set_type(Discord.ActivityType.Playing)
-		activity.set_details("Main Menu")	
-		activity.set_state("Selecting a song")
 
-		var assets = activity.get_assets()
-		assets.set_large_image("icon-bg")
-
-		Discord.activity_manager.update_activity(activity)
-		
-		get_tree().create_timer(300).connect("timeout",self,"idle_status")
-		
+	# max pp panel under the modifiers
 	var h2 = get_node_or_null("Main/Maps/Results/Results/RS/H2")
 	if h2:
 		var panel:PanelContainer = PanelContainer.new()
