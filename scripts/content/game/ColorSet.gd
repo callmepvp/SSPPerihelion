@@ -1,3 +1,4 @@
+#ColorSet
 extends Resource
 class_name ColorSet
 

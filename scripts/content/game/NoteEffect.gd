@@ -1,3 +1,4 @@
+#NoteEffect
 extends Resource
 class_name NoteEffect
 

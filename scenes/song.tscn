@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://scripts/game/Camera.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/NoteManager.gd" type="Script" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://assets/images/spawn_effect.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/grid_outer.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/ui/flashlight.png" type="Texture" id=10]
-[ext_resource path="res://prefabs/Avatar.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/blocks/cube.obj" type="ArrayMesh" id=12]
 [ext_resource path="res://scripts/game/FlashlightModifier.gd" type="Script" id=13]
 [ext_resource path="res://scripts/game/Cursor.gd" type="Script" id=14]
@@ -22,7 +21,6 @@
 [ext_resource path="res://scripts/game/Friend.gd" type="Script" id=26]
 [ext_resource path="res://scripts/game/CameraControl.gd" type="Script" id=30]
 [ext_resource path="res://assets/images/approach.svg" type="Texture" id=44]
-[ext_resource path="res://scripts/game/FaceNote.gd" type="Script" id=45]
 [ext_resource path="res://assets/shaders/VHS.shader" type="Shader" id=55]
 
 [sub_resource type="ShaderMaterial" id=84]
@@ -502,27 +500,6 @@ skeleton = NodePath("../Cursor")
 material/0 = SubResource( 45 )
 script = ExtResource( 26 )
 
-[node name="Avatar" parent="Game" instance=ExtResource( 11 )]
-visible = false
-
-[node name="Head" parent="Game/Avatar" index="0"]
-transform = Transform( 0.225, 0, 0, 0, 0.224144, 0.0196101, 0, -0.0196101, 0.224144, 0, -0.125, 1.975 )
-script = ExtResource( 45 )
-look_multi = 2.0
-speed_multi = 0.05
-
-[node name="HappyR" parent="Game/Avatar/Head" index="1"]
-transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, 0.3, 0.25, -1.01 )
-
-[node name="HappyL" parent="Game/Avatar/Head" index="2"]
-transform = Transform( -0.5, 1.50996e-07, -9.90035e-15, 0, -4.37114e-08, -1.5, -7.54979e-08, -1, 6.55671e-08, -0.3, 0.25, -1.01 )
-
-[node name="Outline" parent="Game/Avatar/Torso" index="0"]
-visible = true
-
-[node name="Mesh" parent="Game/Avatar/ArmR" index="0"]
-transform = Transform( 0.0991445, -0.0130526, 0, 0.0130526, 0.0991445, 0, 0, 0, 0.1, 0.5, -0.75, 2 )
-
 [node name="BlackFade" type="ColorRect" parent="Game"]
 visible = false
 anchor_right = 1.0
@@ -558,7 +535,3 @@ material/0 = SubResource( 79 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
 mesh = SubResource( 83 )
 material/0 = SubResource( 80 )
-
-[editable path="Game/Avatar"]
-[editable path="Game/Avatar/Head/Accessories"]
-[editable path="Game/Avatar/Torso/Shirts"]

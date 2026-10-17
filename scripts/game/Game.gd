@@ -39,8 +39,6 @@ func loadMapFile():
 	$Spawn.spawn_notes(notes)
 	get_node("Spawn/Music").stream = song
 
-onready var head:Spatial = get_node("Avatar/Head")
-
 var hits:float = 0
 var misses:float = 0
 var total_notes:float = 0
@@ -148,22 +146,8 @@ var loaded = false
 var giving_up:float = 0
 var black_fade_target:bool = true
 var black_fade:float = 1
-var passed:bool = false
 
 func _process(delta):
-
-	if !Rhythia.queue_active and $Spawn.ms > last_ms:
-		passed = true
-
-		head.get_node("EyeL").visible = false
-		head.get_node("HappyL").visible = true
-
-		head.get_node("EyeR").visible = false
-		head.get_node("HappyR").visible = true
-
-	if passed:
-		$Avatar/ArmR.translation.y += (1 - $Avatar/ArmR.translation.y) * 0.01
-
 	if !ending:
 		if Input.is_action_pressed("give_up"):
 			giving_up += delta/0.6

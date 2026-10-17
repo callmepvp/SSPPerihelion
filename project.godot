@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "BouncyDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Bouncy.gd"
+"path": "res://scripts/autoplay/Bouncy.gd"
 }, {
 "base": "Resource",
 "class": "ColorSet",
@@ -37,12 +37,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "DanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/DanceMover.gd"
+"path": "res://scripts/autoplay/DanceMover.gd"
 }, {
 "base": "DanceMover",
 "class": "DirectionalDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Directional.gd"
+"path": "res://scripts/autoplay/Directional.gd"
 }, {
 "base": "ColorRect",
 "class": "FileSelector2D",
@@ -57,7 +57,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "MomentumDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Momentum.gd"
+"path": "res://scripts/autoplay/Momentum.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "DanceMover",
 "class": "SimpleDanceMover",
 "language": "GDScript",
-"path": "res://scripts/cursordance/Simple.gd"
+"path": "res://scripts/autoplay/Simple.gd"
 }, {
 "base": "Resource",
 "class": "Song",
@@ -190,7 +190,7 @@ Globals="*res://scripts/Globals.gd"
 Online="*res://scripts/Online.gd"
 Rhythia="*res://scripts/Rhythia.gd"
 RQueue="*res://scripts/content/resources/ResourceQueue.gd"
-Dance="*res://scripts/cursordance/Dance.gd"
+Dance="*res://scripts/autoplay/Dance.gd"
 SFXManager="*res://scripts/game/SFXManager.gd"
 PP="*res://scripts/PP.gd"
 

@@ -134,7 +134,6 @@ var rainbow_t:float = 0 # Keep rainbow effects in perfect sync
 var note_spin_t:float = 0 # Keep note spin settings in perfect sync
 var alert:String = "" # Used for startup
 var should_ask_about_replays:bool = true # Replay setting was not found, ask
-var do_archive_convert:bool = false # Has "Convert SS Archive" been pressed?
 var conmgr_transit = null # Content manager transit data, can vary widely
 var errornum:int = 0 # Used by settings file errors
 var errorstr:String = "" # Used by loading errors (ie. errors/songload and errors/menuload)
@@ -2334,7 +2333,6 @@ func do_init(_ud=null):
 
 	dir.change_dir("res://")
 	first_init_done = true
-	do_archive_convert = false
 
 	var alert_snd_played:bool = false
 	if alert != "":

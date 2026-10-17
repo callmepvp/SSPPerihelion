@@ -1,3 +1,4 @@
+#Note
 class_name Note
 extends Spatial
 

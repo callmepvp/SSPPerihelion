@@ -1,3 +1,4 @@
+#NoteMesh
 extends Resource
 class_name NoteMesh
 

@@ -1,3 +1,4 @@
+#BackgroundWorld
 extends Resource
 class_name BackgroundWorld
 
