@@ -835,6 +835,7 @@ func lcol(data:Dictionary,target:String) -> void:
 # Settings file
 const current_sf_version = 48 # SV
 func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
+	TranslationServer.set_locale("en")
 	if Input.is_key_pressed(KEY_CONTROL) and Input.is_key_pressed(KEY_L):
 		print("force settings read error")
 		return -1
@@ -1109,8 +1110,8 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			half_ghost = data.half_ghost
 
 		if data.has("language"):
-			language = data.language
-			TranslationServer.set_locale(Globals.locale[language])
+			language = 0
+		TranslationServer.set_locale("en")
 
 		# menu2 settings
 
