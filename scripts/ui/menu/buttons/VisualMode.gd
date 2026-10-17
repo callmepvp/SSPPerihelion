@@ -1,11 +1,5 @@
-extends CheckBox
+#VisualMode
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.visual_mode:
-		Rhythia.visual_mode = pressed
-
-func upd(): pressed = Rhythia.visual_mode
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "visual_mode"

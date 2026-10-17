@@ -1,11 +1,5 @@
-extends CheckBox
+#Ghost
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.mod_ghost:
-		Rhythia.mod_ghost = pressed
-
-func upd(): pressed = Rhythia.mod_ghost
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "mod_ghost"

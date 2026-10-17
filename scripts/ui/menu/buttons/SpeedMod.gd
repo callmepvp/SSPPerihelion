@@ -1,3 +1,4 @@
+#SpeedMod
 extends ReferenceRect
 
 onready var mmm:Button = $C/MMM

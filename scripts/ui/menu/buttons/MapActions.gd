@@ -1,29 +1,9 @@
+#MapActions
 extends MenuButton
 
-var sd = false
-
-var options = []
-var target
-var current_sel:int
 var copy_submenu = PopupMenu.new()
 var difficulty_submenu = PopupMenu.new()
-#
-#func on_pressed(i):
-#	Rhythia.set(target,i)
-#	get_popup().set_item_checked(current_sel,false)
-#	get_popup().set_item_checked(i,true)
-#	current_sel = i
-#	text = options[i]
-#
-#
-#func _ready():
-#	current_sel = Rhythia.get(target)
-#	for i in range(options.size()):
-#		get_popup().add_check_item(options[i],i)
-#		if current_sel == i:
-#			get_popup().set_item_checked(i,true)
-#			text = options[i]
-#	get_popup().connect("id_pressed",self,"on_pressed")
+
 var audio_data:PoolByteArray
 
 func save_song_txt(path:String):
@@ -42,15 +22,14 @@ func save_song_audio(path:String):
 			Globals.notify(Globals.NOTIFY_ERROR,"Failed to save file (error code %s)" % err,"Error")
 
 func diff_item_selected(idx:int):
-	if !sd:
-		disabled = true
-		var res = Rhythia.selected_song.change_difficulty(idx - 1)
-		if res == OK:
-			Globals.notify(Globals.NOTIFY_SUCCEED,"Successfully updated difficulty!","Success")
-			Rhythia.emit_signal("favorite_songs_changed") # Force a map list reload
-		else:
-			Globals.notify(Globals.NOTIFY_ERROR,"Could not update difficulty","Error")
-		disabled = false
+	disabled = true
+	var res = Rhythia.selected_song.change_difficulty(idx - 1)
+	if res == OK:
+		Globals.notify(Globals.NOTIFY_SUCCEED,"Successfully updated difficulty!","Success")
+		Rhythia.emit_signal("favorite_songs_changed") # Force a map list reload
+	else:
+		Globals.notify(Globals.NOTIFY_ERROR,"Could not update difficulty","Error")
+	disabled = false
 
 func copy_item_selected(idx:int):
 	match idx:
@@ -92,7 +71,6 @@ func item_selected(idx:int):
 		1:
 			if !(
 				Rhythia.selected_song.is_broken or
-				#Rhythia.selected_song.is_builtin or
 				Rhythia.selected_song.converted or
 				Rhythia.selected_song.songType == Globals.MAP_SSPM2 or
 				Rhythia.selected_song.is_online or
@@ -111,13 +89,11 @@ func item_selected(idx:int):
 				self,
 				"save_song_txt",
 				["*.txt ; Text map data"],
-				#"~/Downloads/%s.txt" % [Rhythia.selected_song.id]
 				OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.txt" % [Rhythia.selected_song.id]
 			)
 		5:
 			if !(
 				Rhythia.selected_song.is_broken or
-				#Rhythia.selected_song.is_builtin or
 				Rhythia.selected_song.is_online
 			):
 				audio_data = Rhythia.selected_song.get_music_buffer()
@@ -127,7 +103,6 @@ func item_selected(idx:int):
 						self,
 						"save_song_audio",
 						["*.mp3 ; mp3 audio file"],
-						#"~/Downloads/%s.mp3" % [Rhythia.selected_song.id]
 						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.mp3" % [Rhythia.selected_song.id]
 					)
 				elif format == "ogg":
@@ -135,19 +110,15 @@ func item_selected(idx:int):
 						self,
 						"save_song_audio",
 						["*.ogg ; ogg audio file"],
-						#"~/Downloads/%s.ogg" % [Rhythia.selected_song.id]
 						OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS) + "/%s.ogg" % [Rhythia.selected_song.id]
 					)
 				else:
 					Globals.notify(Globals.NOTIFY_ERROR,"Unable to determine audio format","Error")
 
-
-
 func upd(_s=null):
 	visible = true
 	get_popup().set_item_disabled(0,(
 		Rhythia.single_map_mode or
-		#Rhythia.selected_song.is_builtin or
 		Rhythia.selected_song.is_online or !(
 			Rhythia.selected_song.songType == Globals.MAP_SSPM or
 			Rhythia.selected_song.songType == Globals.MAP_SSPM2
@@ -156,7 +127,6 @@ func upd(_s=null):
 	get_popup().set_item_disabled(1,(
 		Rhythia.single_map_mode or
 		Rhythia.selected_song.is_broken or
-		#Rhythia.selected_song.is_builtin or
 		Rhythia.selected_song.converted or
 		Rhythia.selected_song.songType == Globals.MAP_SSPM2 or
 		Rhythia.selected_song.is_online
@@ -164,7 +134,6 @@ func upd(_s=null):
 
 	get_popup().set_item_disabled(3,(
 		Rhythia.single_map_mode or
-		#SP.selected_song.is_builtin or
 		Rhythia.selected_song.is_online or !(
 			Rhythia.selected_song.songType == Globals.MAP_SSPM or
 			Rhythia.selected_song.songType == Globals.MAP_SSPM2
@@ -173,18 +142,15 @@ func upd(_s=null):
 
 	get_popup().set_item_disabled(5,(
 		Rhythia.selected_song.is_broken or
-		#Rhythia.selected_song.is_builtin or
 		Rhythia.selected_song.is_online
 	))
 
 	copy_submenu.set_item_disabled(1,(
-		#Rhythia.selected_song.is_builtin or
 		Rhythia.selected_song.is_online
 	))
 
 	for i in range(6):
 		difficulty_submenu.set_item_checked(i,Rhythia.selected_song.difficulty == i - 1)
-
 
 func _ready():
 	visible = false
@@ -217,18 +183,3 @@ func _ready():
 	yield(get_tree(),"idle_frame")
 	copy_submenu.name = "Copy"
 	difficulty_submenu.name = "Difficulty"
-
-
-#func _pressed():
-#	set_item_text(0,"None")
-#
-#func _ready():
-#	Rhythia.connect("selected_song_changed",self,"upd")
-#	add_item("N/A",0)
-#	add_item("Easy",1)
-#	add_item("Medium",2)
-#	add_item("Hard",3)
-#	add_item("Logic?",4)
-#	add_item("助",5)
-#	connect("item_selected",self,"item_selected")
-#	text = "Change Difficulty"

@@ -1,14 +1,13 @@
+#HpModel
 extends MenuButton
 
-var meshes:Array = []
 var current_sel:int
 
-
 var names = [
-	"Default - same as Sound Space", # HP_SOUNDSPACE
-	"Old - 6 hp (10 on easy), regen 1 hp/hit" # HP_OLD
+	"Default - same as Sound Space",
+	"Old - 6 hp (10 on easy), regen 1 hp/hit"
 ]
-var namet = [ # Shown on the button
+var namet = [
 	"Default (Sound Space)",
 	"Old (easier)"
 ]

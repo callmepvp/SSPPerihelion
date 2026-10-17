@@ -1,3 +1,4 @@
+#MapIcon
 extends Panel
 
 var song:Song

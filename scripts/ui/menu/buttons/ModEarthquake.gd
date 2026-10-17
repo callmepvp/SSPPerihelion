@@ -1,11 +1,5 @@
-extends CheckBox
+#ModEarthquake
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.mod_earthquake:
-		Rhythia.mod_earthquake = pressed
-
-func upd(): pressed = Rhythia.mod_earthquake
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "mod_earthquake"

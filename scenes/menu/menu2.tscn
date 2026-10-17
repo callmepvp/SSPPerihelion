@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=2]
+[gd_scene load_steps=203 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -42,7 +42,6 @@
 [ext_resource path="res://scripts/ui/menu/buttons/SetDifficulty.gd" type="Script" id=40]
 [ext_resource path="res://scripts/ui/menu/buttons/HpModel.gd" type="Script" id=41]
 [ext_resource path="res://assets/images/transparent.png" type="Texture" id=42]
-[ext_resource path="res://scripts/ui/menu/buttons/Nearsight.gd" type="Script" id=43]
 [ext_resource path="res://scripts/ui/menu/buttons/SuddenDeath.gd" type="Script" id=44]
 [ext_resource path="res://scripts/ui/menu/buttons/Ghost.gd" type="Script" id=45]
 [ext_resource path="res://scripts/ui/menu/rainbow.gd" type="Script" id=46]
@@ -2697,38 +2696,6 @@ text = "Mirror Y"
 align = 2
 valign = 1
 clip_text = true
-
-[node name="Nearsight" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
-visible = false
-margin_left = 130.0
-margin_top = 135.0
-margin_right = 190.0
-margin_bottom = 167.0
-theme = ExtResource( 1 )
-custom_colors/font_color_hover_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_hover = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_colors/font_color_pressed = Color( 0.670588, 0.556863, 0.556863, 1 )
-custom_fonts/font = SubResource( 92 )
-action_mode = 0
-flat = true
-script = ExtResource( 43 )
-
-[node name="Label" type="Label" parent="Main/Maps/Results/Results/RS/H2/Mods/Nearsight"]
-margin_left = -115.0
-margin_right = -10.0
-margin_bottom = 32.0
-focus_mode = 2
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.960784, 1, 0.478431, 1 )
-custom_fonts/font = SubResource( 91 )
-text = "Nearsighted"
-align = 2
-valign = 1
-clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Earthquake" type="CheckBox" parent="Main/Maps/Results/Results/RS/H2/Mods"]
 margin_left = 96.0

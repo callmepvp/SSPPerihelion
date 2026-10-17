@@ -1,11 +1,5 @@
-extends CheckBox
+#MirrorX
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.mod_mirror_x:
-		Rhythia.mod_mirror_x = pressed
-
-func upd(): pressed = Rhythia.mod_mirror_x
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "mod_mirror_x"

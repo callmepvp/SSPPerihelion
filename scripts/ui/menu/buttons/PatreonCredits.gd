@@ -1,3 +1,5 @@
+#PatreonCredits
+# seems pointless since i removed the patreon list scene. maybe we can remove this too.
 extends Control
 
 func _ready():

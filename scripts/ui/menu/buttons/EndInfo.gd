@@ -1,15 +1,14 @@
+#EndInfo
 extends Control
 
 func comma_sep(number):
 	var string = str(number)
 	var mod = string.length() % 3
 	var res = ""
-	
 	for i in range(0, string.length()):
 		if i != 0 && i % 3 == mod:
 			res += ","
 		res += string[i]
-	
 	return res
 
 func hide_info(_s=null):
@@ -25,7 +24,6 @@ var rainbow_letter_grade:bool = false
 func update_letter_grade(acc:float=0):
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
-	var shine:float = 0
 	rainbow_letter_grade = (acc == 1)
 	if acc == 1:
 		grade = "SS"
@@ -48,18 +46,17 @@ func update_letter_grade(acc:float=0):
 	else:
 		grade = "F"
 		gcol = Color("#ff8282")
-	
+
 	$LetterGrade.text = grade
-	$LetterGrade.material.set_shader_param("shine",shine)
+	$LetterGrade.material.set_shader_param("shine",0.0)
 	$LetterGrade.set("custom_colors/font_color",gcol)
-	
+
 	# make gcol more transparent
 	gcol.a = 0.1
 	$LetterGrade2.text = grade
 	$LetterGrade2.set("custom_colors/font_color",gcol)
-	
 
-func _process(delta):
+func _process(_delta):
 	if rainbow_letter_grade:
 		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1))
 		$LetterGrade2.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,0.1))
@@ -76,29 +73,35 @@ func show_pb(_s=null):
 			else:
 				$Result.text = "Best Attempt"
 				$Result.set("custom_colors/font_color",Color("#ea4aca"))
-			
+
 			$FullCombo.visible = misses == 0 && pb.has_passed
-			$Misses.visible = !misses == 0 || !pb.has_passed
+			$Misses.visible = misses != 0 || !pb.has_passed
 			$Misses.text = comma_sep(misses)
-			
+
 			$NoPauses.visible = pb.pauses == 0
-			$Pauses.visible = !pb.pauses == 0
+			$Pauses.visible = pb.pauses != 0
 			$Pauses.text = comma_sep(pb.pauses)
 
+			var total:float = max(float(pb.total_notes), 1.0)
+			var acc:float = float(pb.hit_notes) / total
 			$Accuracy.text = "%s/%s\n%.03f%%" % [
 				comma_sep(pb.hit_notes),
 				comma_sep(pb.total_notes),
-				(float(pb.hit_notes)/float(pb.total_notes))*100
+				acc * 100.0
 			]
-			
+
 			if pb.max_combo < 0:
 				$MaxCombo.text = "?"
 			else:
 				$MaxCombo.text = comma_sep(pb.max_combo)
 			$MaxCombo.text += "\n"
-			
-			update_letter_grade(float(pb.hit_notes)/float(pb.total_notes))
-			$Progress.text = "%s\n%.2f%%" % [get_time_ms(pb.position),clamp(pb.position/Rhythia.selected_song.last_ms,0,1)*100]
+
+			update_letter_grade(acc)
+			var map_len:float = max(Rhythia.selected_song.last_ms, 1.0)
+			$Progress.text = "%s\n%.2f%%" % [
+				get_time_ms(pb.position),
+				clamp(pb.position/map_len, 0, 1)*100.0
+			]
 		else:
 			visible = true
 			$Result.text = "No PB"
@@ -141,22 +144,22 @@ func _ready():
 			$Result.text = "You failed (new best!)"
 			$Result.set("custom_colors/font_color",Color("#ea4aca"))
 		else: $Result.text = "You failed!"
-		
-		
+
 		$FullCombo.visible = Rhythia.song_end_misses == 0 && Rhythia.song_end_type == Globals.END_PASS
-		$Misses.visible = !Rhythia.song_end_misses == 0 || !Rhythia.song_end_type == Globals.END_PASS
+		$Misses.visible = Rhythia.song_end_misses != 0 || Rhythia.song_end_type != Globals.END_PASS
 		$Misses.text = comma_sep(Rhythia.song_end_misses)
-		
+
 		$NoPauses.visible = Rhythia.song_end_pause_count == 0
-		$Pauses.visible = !Rhythia.song_end_pause_count == 0
+		$Pauses.visible = Rhythia.song_end_pause_count != 0
 		$Pauses.text = comma_sep(Rhythia.song_end_pause_count)
 
+		var total:float = max(float(Rhythia.song_end_total_notes), 1.0)
+		var acc:float = float(Rhythia.song_end_hits) / total
 		$Accuracy.text = "%s/%s\n%.03f%%" % [
 			comma_sep(Rhythia.song_end_hits),
 			comma_sep(Rhythia.song_end_total_notes),
-			(float(Rhythia.song_end_hits)/float(Rhythia.song_end_total_notes))*100
+			acc * 100.0
 		]
-		
 
 		if Rhythia.song_end_combo < Rhythia.selected_song.note_count:
 			$MaxCombo.text = comma_sep(Rhythia.song_end_combo)
@@ -165,9 +168,14 @@ func _ready():
 		else:
 			$MaxCombo.text = "NO COMBO"
 		$MaxCombo.text += "\n"
-		
-		update_letter_grade(float(Rhythia.song_end_hits)/float(Rhythia.song_end_total_notes))
-		$Progress.text = "%s\n%.1f%%" % [Rhythia.song_end_time_str,clamp(Rhythia.song_end_position/Rhythia.song_end_length,0,1)*100]
+
+		update_letter_grade(acc)
+
+		var slen:float = max(Rhythia.song_end_length, 1.0)
+		$Progress.text = "%s\n%.1f%%" % [
+			Rhythia.song_end_time_str,
+			clamp(Rhythia.song_end_position/slen, 0, 1)*100.0
+		]
 	else:
 		show_pb()
 	Rhythia.just_ended_song = false

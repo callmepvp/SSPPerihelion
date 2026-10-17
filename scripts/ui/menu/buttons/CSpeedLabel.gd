@@ -1,3 +1,4 @@
+#CSpeedLabel
 extends Label
 
 func upd():

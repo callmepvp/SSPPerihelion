@@ -1,3 +1,4 @@
+#diffSort
 extends VBoxContainer
 
 onready var G = get_parent().get_node("MapRegistry/S/VBoxContainer")

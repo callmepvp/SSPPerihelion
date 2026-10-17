@@ -1,3 +1,4 @@
+#v3MapList
 extends VBoxContainer
 
 signal search_updated

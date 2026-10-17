@@ -1,6 +1,8 @@
+#PlaySong
 extends Button
 
 var has_auto_previewed:bool = false
+var song = Rhythia.selected_song
 
 func _pressed():
 	if !Rhythia.selected_song: return
@@ -18,13 +20,10 @@ func _pressed():
 			$MenuSong.volume_db = -45
 			$MenuSong.play()
 
-var song = Rhythia.selected_song
-
 func on_path_press():
 	has_auto_previewed = false
 	$Song.stop()
 	text = "Play Music"
-	
 
 func _process(delta):
 	var trg = Rhythia.music_volume_db
@@ -35,31 +34,38 @@ func upd_mm():
 	if Rhythia.play_menu_music and !$Song.playing:
 		$MenuSong.volume_db = -45
 		$MenuSong.play()
-	else: $MenuSong.stop()
+	else:
+		$MenuSong.stop()
 
 func upd(s=null):
-	if s != song:
-		if $Song.playing or (Rhythia.auto_preview_song and !has_auto_previewed):
-			if Rhythia.auto_preview_song: has_auto_previewed = true
-			$Song.stop()
-			$MenuSong.stop()
-			$Song.volume_db = -55
-			$Song.stream = Rhythia.selected_song.stream()
-			if $Song.stream == Globals.error_sound:
-				has_auto_previewed = false
-				return
-			if ($Song.stream is AudioStreamMP3 or $Song.stream is AudioStreamOGGVorbis):
-				$Song.stream.loop = true
-			$Song.pitch_scale = Globals.speed_multi[Rhythia.mod_speed_level]
-#			print(Rhythia.mod_speed_level)
-			if $Song.stream: $Song.play($Song.stream.get_length()/3)
-			text = "Stop Playing"
-		else:
+	if !Rhythia.selected_song:
+		text = "Play Music"
+		return
+	if s == song: return
+
+	if $Song.playing or (Rhythia.auto_preview_song and !has_auto_previewed):
+		if Rhythia.auto_preview_song: has_auto_previewed = true
+		$Song.stop()
+		$MenuSong.stop()
+		$Song.volume_db = -55
+		var new_stream = Rhythia.selected_song.stream()
+		if new_stream == Globals.error_sound or new_stream == null:
+			has_auto_previewed = false
 			text = "Play Music"
-			if Rhythia.play_menu_music and !$MenuSong.playing:
-				$MenuSong.volume_db = -45
-				$MenuSong.play()
-		song = Rhythia.selected_song
+			song = Rhythia.selected_song
+			return
+		$Song.stream = new_stream
+		if $Song.stream is AudioStreamMP3 or $Song.stream is AudioStreamOGGVorbis:
+			$Song.stream.loop = true
+		$Song.pitch_scale = Globals.speed_multi[Rhythia.mod_speed_level]
+		if $Song.stream: $Song.play($Song.stream.get_length()/3)
+		text = "Stop Playing"
+	else:
+		text = "Play Music"
+		if Rhythia.play_menu_music and !$MenuSong.playing:
+			$MenuSong.volume_db = -45
+			$MenuSong.play()
+	song = Rhythia.selected_song
 
 func _ready():
 	Rhythia.connect("selected_song_changed",self,"upd")
@@ -74,5 +80,4 @@ func _ready():
 	if Rhythia.play_menu_music:
 		yield(get_tree().create_timer(0.5),"timeout")
 		if !$Song.playing:
-#			$MenuSong.volume_db = -45
 			$MenuSong.play()

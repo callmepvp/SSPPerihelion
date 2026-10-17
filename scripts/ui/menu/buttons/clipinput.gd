@@ -1,3 +1,4 @@
+#clipinput
 extends Control
 
 func _clips_input():

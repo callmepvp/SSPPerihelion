@@ -1,3 +1,4 @@
+#ExportTxt
 extends Button
 
 var debounce = false

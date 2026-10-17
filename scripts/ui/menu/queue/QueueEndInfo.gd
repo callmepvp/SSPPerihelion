@@ -1,15 +1,14 @@
+#QueueEndInfo
 extends Control
 
 func comma_sep(number):
 	var string = str(number)
 	var mod = string.length() % 3
 	var res = ""
-	
 	for i in range(0, string.length()):
 		if i != 0 && i % 3 == mod:
 			res += ","
 		res += string[i]
-	
 	return res
 
 func hide_info(_s=null):
@@ -25,7 +24,6 @@ var rainbow_letter_grade:bool = false
 func update_letter_grade(acc:float=0):
 	var grade:String = "--"
 	var gcol:Color = Color(1,0,1)
-	var shine:float = 0
 	rainbow_letter_grade = (acc == 1)
 	if acc == 1:
 		grade = "SS"
@@ -48,12 +46,12 @@ func update_letter_grade(acc:float=0):
 	else:
 		grade = "F"
 		gcol = Color("#ff8282")
-	
+
 	$LetterGrade.text = grade
-	$LetterGrade.material.set_shader_param("shine",shine)
+	$LetterGrade.material.set_shader_param("shine",0.0)
 	$LetterGrade.set("custom_colors/font_color",gcol)
 
-func _process(delta):
+func _process(_delta):
 	if rainbow_letter_grade:
 		$LetterGrade.set("custom_colors/font_color",Color.from_hsv(Rhythia.rainbow_t*0.1,0.4,1))
 
@@ -61,31 +59,34 @@ func upd():
 	var ls = floor(Rhythia.queue_end_length/1000)
 	var lm = floor(ls / 60)
 	var lrs = fmod(ls,60)
-	
+
 	var s = clamp(floor(Rhythia.queue_end_position/1000),0,ls)
 	var m = floor(s / 60)
 	var rs = fmod(s,60)
-	
+
 	$Result.text = "%s/%s songs done" % [Rhythia.queue_pos,Rhythia.song_queue.size()]
-	
-	
+
 	$FullCombo.visible = Rhythia.queue_end_misses == 0
-	$Misses.visible = !Rhythia.queue_end_misses == 0
+	$Misses.visible = Rhythia.queue_end_misses != 0
 	$Misses.text = comma_sep(Rhythia.queue_end_misses)
-	
+
 	$NoPauses.visible = Rhythia.queue_end_pause_count == 0
-	$Pauses.visible = !Rhythia.queue_end_pause_count == 0
+	$Pauses.visible = Rhythia.queue_end_pause_count != 0
 	$Pauses.text = comma_sep(Rhythia.queue_end_pause_count)
 
+	var total:float = max(float(Rhythia.queue_end_total_notes), 1.0)
+	var acc:float = float(Rhythia.queue_end_hits) / total
 	$Accuracy.text = "%s/%s\n%.03f%%" % [
 		comma_sep(Rhythia.queue_end_hits),
 		comma_sep(Rhythia.queue_end_total_notes),
-		(float(Rhythia.queue_end_hits)/float(Rhythia.queue_end_total_notes))*100
+		acc * 100.0
 	]
-	update_letter_grade(float(Rhythia.queue_end_hits)/float(Rhythia.queue_end_total_notes))
+	update_letter_grade(acc)
+
+	var qlen:float = max(Rhythia.queue_end_length, 1.0)
 	$Progress.text = "%d:%02d/%d:%02d\n%.1f%%" % [
 		m,rs,lm,lrs,
-		clamp(Rhythia.queue_end_position/Rhythia.queue_end_length,0,1)*100
+		clamp(Rhythia.queue_end_position/qlen, 0, 1)*100.0
 	]
-	
+
 	Rhythia.just_ended_song = false

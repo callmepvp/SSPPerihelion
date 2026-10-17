@@ -1,11 +1,5 @@
-extends CheckBox
+#HardMode
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.mod_no_regen:
-		Rhythia.mod_no_regen = pressed
-
-func upd(): pressed = Rhythia.mod_no_regen
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "mod_no_regen"

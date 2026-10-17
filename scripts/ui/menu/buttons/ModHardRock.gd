@@ -1,11 +1,5 @@
-extends CheckBox
+#ModHardRock
+extends "res://scripts/ui/menu/buttons/ModToggle.gd"
 
-func _process(_d):
-	if pressed != Rhythia.mod_hardrock:
-		Rhythia.mod_hardrock = pressed
-
-func upd(): pressed = Rhythia.mod_hardrock
-
-func _ready():
-	upd()
-	Rhythia.connect("mods_changed",self,"upd")
+func _init():
+	mod_property = "mod_hardrock"

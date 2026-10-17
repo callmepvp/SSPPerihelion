@@ -1,3 +1,4 @@
+#Favorite
 extends Button
 
 func _pressed():

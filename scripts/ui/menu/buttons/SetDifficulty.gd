@@ -1,3 +1,4 @@
+#SetDifficulty
 extends OptionButton
 
 var sd = false

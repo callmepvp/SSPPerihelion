@@ -1,3 +1,4 @@
+#ContentMgrAddMap
 extends Button
 
 var has_been_pressed:bool = false

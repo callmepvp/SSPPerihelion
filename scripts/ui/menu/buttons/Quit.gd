@@ -1,3 +1,4 @@
+#Quit
 extends Button
 
 func _pressed():

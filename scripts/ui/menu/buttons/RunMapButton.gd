@@ -1,6 +1,10 @@
+#RunMapButton
 extends Button
 
 signal lock_type
+
+onready var search_box = $"/root/Menu/Main/Maps/MapRegistry/T/Search"
+onready var author_box = $"/root/Menu/Main/Maps/MapRegistry/T/AuthorSearch"
 
 var has_been_pressed:bool = false
 var detected_controllers = Input.get_connected_joypads().size()
@@ -28,15 +32,14 @@ func files_dropped(files:PoolStringArray,_screen:int):
 		var list = $"/root/Menu/Main/Maps/MapRegistry/S/VBoxContainer"
 		list.prepare_songs()
 		list.build_list()
-#		list.reload_to_current_page()
 		if song:
 			Rhythia.select_song(song)
 			list.switch_to_play_screen()
 
 func _input(event:InputEvent):
 	if not is_visible_in_tree(): return
-	if get_focus_owner() == $"/root/Menu/Main/Maps/MapRegistry/T/Search": return
-	if get_focus_owner() == $"/root/Menu/Main/Maps/MapRegistry/T/AuthorSearch": return
+	var focus = get_focus_owner()
+	if focus == search_box or focus == author_box: return
 	if get_viewport().get_node("Menu/Main/Maps/Results").visible == true:
 		if !disabled && !has_been_pressed && event is InputEventJoypadButton:
 			if event.button_index == JOY_XBOX_A && event.pressed:
@@ -50,12 +53,10 @@ func _input(event:InputEvent):
 				pressed = true
 
 func _pressed():
-	# button functionality
 	if !Rhythia.selected_song: return
 	if has_been_pressed: return
 	emit_signal("lock_type") # lock input to line edits (MapSearch and AuthorSearch)
-	
-	# Controller detection
+
 	if detected_controllers >= 1 and !Rhythia.ignore_controller_detection:
 		var sel = 1
 		Globals.confirm_prompt.s_alert.play()
@@ -75,11 +76,6 @@ func _pressed():
 		get_viewport().get_node("Menu").black_fade_target = true
 		yield(get_tree().create_timer(0.35),"timeout")
 		get_tree().change_scene("res://scenes/loaders/songload.tscn")
-
-	# Debug printing
-#	print("Connected controllers:\n")
-#	print(detected_controllers)
-#	print("\n\n\n\n")
 
 func _ready():
 	get_tree().connect("files_dropped",self,"files_dropped")
