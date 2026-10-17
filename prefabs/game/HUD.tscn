@@ -1,12 +1,10 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://scripts/game/TrueComboHandler.gd" type="Script" id=1]
 [ext_resource path="res://scripts/game/FPS.gd" type="Script" id=2]
 [ext_resource path="res://scripts/game/configDisp.gd" type="Script" id=3]
-[ext_resource path="res://assets/font/debug.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/font/Lato/Lato-Bold.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://assets/images/cursors/circle.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/modifiers/64/speed_mmm_colored.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/ui/spinner_thin.png" type="Texture" id=9]
 [ext_resource path="res://assets/images/modifiers/64/speed_m_colored.png" type="Texture" id=10]
@@ -18,16 +16,11 @@
 [ext_resource path="res://assets/images/modifiers/64/speed_pp_colored.png" type="Texture" id=16]
 [ext_resource path="res://assets/images/modifiers/64/speed_mm_colored.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/modifiers/64/replaying.png" type="Texture" id=18]
-[ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=19]
 [ext_resource path="res://assets/images/modifiers/64/speed_ppp_colored.png" type="Texture" id=20]
 [ext_resource path="res://assets/images/modifiers/64/speed_pppp_colored.png" type="Texture" id=21]
 [ext_resource path="res://assets/images/modifiers/64/autoplayer.png" type="Texture" id=22]
-[ext_resource path="res://scripts/autoplay/Cursor.gd" type="Script" id=23]
-[ext_resource path="res://scripts/autoplay/Stop.gd" type="Script" id=24]
 [ext_resource path="res://scripts/game/CircularProgress2.gd" type="Script" id=25]
 [ext_resource path="res://scripts/game/PauseHud.gd" type="Script" id=26]
-[ext_resource path="res://scripts/autoplay/Main.gd" type="Script" id=27]
-[ext_resource path="res://scripts/autoplay/dancetest.gd" type="Script" id=28]
 [ext_resource path="res://scripts/game/HUD.gd" type="Script" id=29]
 [ext_resource path="res://scripts/game/TextShake.gd" type="Script" id=30]
 [ext_resource path="res://assets/font/Noto_Sans_JP/NotoSansJP-Medium.otf" type="DynamicFontData" id=31]
@@ -209,30 +202,6 @@ size = 128
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="StyleBoxFlat" id=78]
-bg_color = Color( 0, 0, 0, 1 )
-border_color = Color( 0.254902, 0.254902, 0.254902, 1 )
-
-[sub_resource type="DynamicFont" id=79]
-outline_color = Color( 0, 0, 0, 1 )
-use_filter = true
-font_data = ExtResource( 14 )
-
-[sub_resource type="DynamicFont" id=80]
-use_filter = true
-font_data = ExtResource( 14 )
-
-[sub_resource type="Theme" id=81]
-default_font = SubResource( 80 )
-
-[sub_resource type="GDScript" id=82]
-script/source = "extends Button
-
-func _pressed():
-	Rhythia.menu_target = \"res://menu2.tscn\"
-	get_tree().change_scene(\"res://menuload.tscn\")
-"
-
 [sub_resource type="ViewportTexture" id=21]
 flags = 4
 viewport_path = NodePath("TimerVP")
@@ -264,10 +233,6 @@ viewport_path = NodePath("ConfigVP")
 [sub_resource type="ViewportTexture" id=28]
 flags = 4
 viewport_path = NodePath("ComboVP")
-
-[sub_resource type="ViewportTexture" id=83]
-flags = 4
-viewport_path = NodePath("ApproachVP")
 
 [node name="HUD" type="Spatial"]
 pause_mode = 1
@@ -1141,183 +1106,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ApproachVP" type="Viewport" parent="."]
-size = Vector2( 300, 300 )
-transparent_bg = true
-msaa = 1
-fxaa = true
-hdr = false
-usage = 0
-render_target_update_mode = 3
-gui_snap_controls_to_pixels = false
-
-[node name="Control" type="ColorRect" parent="ApproachVP"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0 )
-script = ExtResource( 28 )
-
-[node name="Main" type="Panel" parent="ApproachVP/Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = -150.0
-margin_right = 150.0
-margin_bottom = 150.0
-custom_styles/panel = SubResource( 78 )
-script = ExtResource( 27 )
-
-[node name="Control" type="Control" parent="ApproachVP/Control/Main"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-
-[node name="Cursor" type="Node2D" parent="ApproachVP/Control/Main/Control"]
-visible = false
-script = ExtResource( 23 )
-font = ExtResource( 4 )
-
-[node name="TextureRect" type="TextureRect" parent="ApproachVP/Control/Main/Control/Cursor"]
-margin_left = -16.0
-margin_top = -16.0
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 7 )
-expand = true
-stretch_mode = 1
-
-[node name="Music" type="AudioStreamPlayer" parent="ApproachVP/Control/Main"]
-volume_db = -80.0
-
-[node name="Hit" type="AudioStreamPlayer" parent="ApproachVP/Control/Main"]
-stream = ExtResource( 19 )
-volume_db = -80.0
-
-[node name="Time" type="HSlider" parent="ApproachVP/Control"]
-visible = false
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 61.0
-margin_right = -10.0
-margin_bottom = 77.0
-min_value = -1000.0
-page = 15.0
-value = -1000.0
-editable = false
-
-[node name="Label" type="Label" parent="ApproachVP/Control"]
-visible = false
-margin_left = 24.0
-margin_top = 85.0
-margin_right = 184.0
-margin_bottom = 102.0
-custom_fonts/font = SubResource( 79 )
-text = "debug text goes here"
-
-[node name="Buttons" type="HBoxContainer" parent="ApproachVP/Control"]
-visible = false
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 10.0
-margin_right = -10.0
-margin_bottom = 55.0
-theme = SubResource( 81 )
-
-[node name="StartStop" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
-margin_right = 114.0
-margin_bottom = 45.0
-
-[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/StartStop"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 107.0
-margin_bottom = 38.0
-
-[node name="Start" type="Button" parent="ApproachVP/Control/Buttons/StartStop/H"]
-margin_right = 52.0
-margin_bottom = 31.0
-text = "start"
-
-[node name="Stop" type="Button" parent="ApproachVP/Control/Buttons/StartStop/H"]
-margin_left = 56.0
-margin_right = 100.0
-margin_bottom = 31.0
-disabled = true
-text = "stop"
-
-[node name="Seek" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
-margin_left = 118.0
-margin_right = 286.0
-margin_bottom = 45.0
-rect_min_size = Vector2( 0, 45 )
-
-[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/Seek"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 161.0
-margin_bottom = 38.0
-
-[node name="Seek" type="Button" parent="ApproachVP/Control/Buttons/Seek/H"]
-margin_right = 44.0
-margin_bottom = 31.0
-text = "seek"
-
-[node name="LineEdit" type="LineEdit" parent="ApproachVP/Control/Buttons/Seek/H"]
-margin_left = 48.0
-margin_right = 154.0
-margin_bottom = 31.0
-rect_min_size = Vector2( 96, 0 )
-expand_to_text_length = true
-placeholder_text = "position ms"
-
-[node name="Current" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
-margin_left = 290.0
-margin_right = 474.0
-margin_bottom = 45.0
-
-[node name="M" type="MarginContainer" parent="ApproachVP/Control/Buttons/Current"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 177.0
-margin_bottom = 38.0
-custom_constants/margin_right = 5
-custom_constants/margin_left = 5
-
-[node name="L" type="Label" parent="ApproachVP/Control/Buttons/Current/M"]
-margin_left = 5.0
-margin_top = 7.0
-margin_right = 165.0
-margin_bottom = 24.0
-text = "0:00 / 0:00  (0 / 0)"
-valign = 1
-
-[node name="Exit" type="PanelContainer" parent="ApproachVP/Control/Buttons"]
-margin_left = 478.0
-margin_right = 584.0
-margin_bottom = 45.0
-
-[node name="H" type="HBoxContainer" parent="ApproachVP/Control/Buttons/Exit"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 99.0
-margin_bottom = 38.0
-
-[node name="Menu" type="Button" parent="ApproachVP/Control/Buttons/Exit/H"]
-margin_right = 44.0
-margin_bottom = 31.0
-text = "Menu"
-script = SubResource( 82 )
-
-[node name="Stop" type="Button" parent="ApproachVP/Control/Buttons/Exit/H"]
-margin_left = 48.0
-margin_right = 92.0
-margin_bottom = 31.0
-text = "Quit"
-script = ExtResource( 24 )
-
 [node name="TimerHud" type="Sprite3D" parent="."]
 transform = Transform( -1, 2.9595e-08, -1.50892e-07, -1.50597e-07, -0.386727, 0.922195, -3.10616e-08, 0.922195, 0.386727, -3.7723e-08, 1.97899, 0.208945 )
 cast_shadow = 0
@@ -1396,9 +1184,3 @@ axis = 1
 no_depth_test = true
 render_priority = 100
 texture = SubResource( 28 )
-
-[node name="ApproachHud" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 4.37114e-08, -4.37114e-08, 1.91069e-15, 1, 0, -1, 1.91069e-15, 0.00100005, 0, -0.006 )
-visible = false
-axis = 1
-texture = SubResource( 83 )

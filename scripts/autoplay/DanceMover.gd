@@ -1,3 +1,4 @@
+#DanceMover
 extends Resource
 class_name DanceMover
 

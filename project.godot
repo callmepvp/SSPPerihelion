@@ -39,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/autoplay/DanceMover.gd"
 }, {
-"base": "DanceMover",
-"class": "DirectionalDanceMover",
-"language": "GDScript",
-"path": "res://scripts/autoplay/Directional.gd"
-}, {
 "base": "ColorRect",
 "class": "FileSelector2D",
 "language": "GDScript",
@@ -53,11 +48,6 @@ _global_script_classes=[ {
 "class": "ImageLoader",
 "language": "GDScript",
 "path": "res://scripts/content/resources/ImageLoader.gd"
-}, {
-"base": "DanceMover",
-"class": "MomentumDanceMover",
-"language": "GDScript",
-"path": "res://scripts/autoplay/Momentum.gd"
 }, {
 "base": "Spatial",
 "class": "Note",
@@ -99,11 +89,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/content/game/Replay.gd"
 }, {
-"base": "DanceMover",
-"class": "SimpleDanceMover",
-"language": "GDScript",
-"path": "res://scripts/autoplay/Simple.gd"
-}, {
 "base": "Resource",
 "class": "Song",
 "language": "GDScript",
@@ -126,10 +111,8 @@ _global_script_class_icons={
 "ColorSet": "",
 "ConfirmationPrompt2D": "",
 "DanceMover": "",
-"DirectionalDanceMover": "",
 "FileSelector2D": "",
 "ImageLoader": "",
-"MomentumDanceMover": "",
 "Note": "",
 "NoteEffect": "",
 "NoteManager": "",
@@ -138,7 +121,6 @@ _global_script_class_icons={
 "ObjParse": "",
 "Registry": "",
 "Replay": "",
-"SimpleDanceMover": "",
 "Song": "",
 "SongPlayerManager": "",
 "StringPrompt2D": ""

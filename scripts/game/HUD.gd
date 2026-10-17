@@ -30,9 +30,6 @@ onready var friend:MeshInstance = Spawn.get_node("Friend")
 onready var cur_pos = $"../Spawn/Cursor/Mesh".global_transform.origin
 onready var pcur_pos = cur_pos
 
-
-
-
 var panel_bg:Color = Rhythia.panel_bg
 var panel_text:Color = Rhythia.panel_text
 

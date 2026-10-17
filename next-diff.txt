@@ -1,0 +1,14 @@
+prefabs/game/HUD.tscn
+project.godot
+scripts/autoplay/Bouncy.gd
+scripts/autoplay/Dance.gd
+scripts/autoplay/DanceMover.gd
+scripts/cursordance/Cursor.gd
+scripts/cursordance/Directional.gd
+scripts/cursordance/Main.gd
+scripts/cursordance/Momentum.gd
+scripts/cursordance/Simple.gd
+scripts/cursordance/Stop.gd
+scripts/cursordance/dancetest.gd
+scripts/cursordance/maingrid.tscn
+scripts/game/HUD.gd
