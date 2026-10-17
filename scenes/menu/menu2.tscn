@@ -1,4 +1,4 @@
-[gd_scene load_steps=206 format=2]
+[gd_scene load_steps=205 format=2]
 
 [ext_resource path="res://uitheme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/Lato/Lato-Regular.ttf" type="DynamicFontData" id=2]
@@ -54,7 +54,6 @@
 [ext_resource path="res://assets/images/ui/home.png" type="Texture" id=52]
 [ext_resource path="res://assets/images/ui/settings.png" type="Texture" id=53]
 [ext_resource path="res://assets/images/ui/add_icon.png" type="Texture" id=54]
-[ext_resource path="res://assets/images/ui/old_menu.png" type="Texture" id=55]
 [ext_resource path="res://assets/images/ui/quit_to_desktop.png" type="Texture" id=56]
 [ext_resource path="res://scripts/ui/menu/buttons/ExportTxt.gd" type="Script" id=58]
 [ext_resource path="res://scripts/ui/menu/StartOffset.gd" type="Script" id=59]
@@ -4706,38 +4705,6 @@ anchor_bottom = 1.0
 margin_left = 64.0
 custom_fonts/font = SubResource( 6 )
 text = "Play in VR"
-valign = 1
-
-[node name="OldMenu" type="Button" parent="Sidebar/L"]
-visible = false
-margin_top = 290.0
-margin_right = 58.0
-margin_bottom = 348.0
-rect_min_size = Vector2( 0, 58 )
-custom_styles/hover = SubResource( 4 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 4 )
-toggle_mode = true
-action_mode = 0
-group = SubResource( 5 )
-
-[node name="Tex" type="TextureRect" parent="Sidebar/L/OldMenu"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 48.0
-margin_bottom = 48.0
-texture = ExtResource( 55 )
-expand = true
-stretch_mode = 6
-
-[node name="Label" type="Label" parent="Sidebar/L/OldMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 64.0
-custom_fonts/font = SubResource( 8 )
-text = "Switch to Old Menu"
 valign = 1
 
 [node name="Quit" type="Button" parent="Sidebar/L"]

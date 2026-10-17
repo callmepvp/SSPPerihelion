@@ -141,7 +141,6 @@ var first_init_done = false # Don't reload mods as that can cause problems
 var loaded_world = null # Holds the bg world for transit between songload and song player
 var was_map_screen_centered:bool = true
 var menu_target:String = ProjectSettings.get_setting("application/config/default_menu_target")
-# var menu_target:String = "res://scenes/menu/oldmenu2.tscn"
 var is_init:bool = true # Used to check if Onboarding is being used for game startup
 
 # Song list position/search persistence
@@ -613,7 +612,6 @@ var bloom:float = 0
 var vhs_shader:bool = false
 
 # Settings - Experimental
-var enable_oldmenu:bool = false
 var disable_update:bool = false
 var legacy_music:bool = false
 var render_scale:float = 1
@@ -1111,8 +1109,6 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 		if data.has("pb_volume"):
 			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("PBSound"), dser_float(data.pb_volume))
 
-		if data.has("enable_oldmenu"):
-			enable_oldmenu = data.enable_oldmenu
 		if data.has("disable_update"):
 			disable_update = data.disable_update
 		if data.has("legacy_music"):
@@ -1386,8 +1382,6 @@ func load_saved_settings(saveFile:String = Globals.p("user://settings.json")):
 			expand_hud_onhr = bool(file.get_8())
 		if sv >= 50:
 			last_search_incl_online = bool(file.get8())
-		if sv >= 51:
-			enable_oldmenu = bool(file.get_8())
 		if sv >= 52:
 			disable_update = bool(file.get_8())
 		if sv >= 53:
@@ -1563,7 +1557,6 @@ func save_settings(saveFile:String = Globals.p("user://settings.json")):
 
 			edge_drift = ser_float(edge_drift),
 
-			enable_oldmenu = enable_oldmenu,
 			disable_update = disable_update,
 			legacy_music = legacy_music,
 			ensure_hitsync = ensure_hitsync,

@@ -5304,25 +5304,6 @@ margin_left = 66.0
 margin_right = 1280.0
 margin_bottom = 230.0
 
-[node name="LegacyMenu" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
-margin_right = 318.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 0, 28 )
-hint_tooltip = "Enables the old grid-styled menu"
-theme = ExtResource( 1 )
-custom_colors/font_color_disabled = Color( 0.898039, 0.94902, 1, 1 )
-custom_colors/font_color_focus = Color( 0.898039, 0.94902, 1, 1 )
-custom_colors/font_color_hover_pressed = Color( 0.898039, 0.94902, 1, 1 )
-custom_colors/font_color = Color( 0.898039, 0.94902, 1, 1 )
-custom_colors/font_color_hover = Color( 0.898039, 0.94902, 1, 1 )
-custom_colors/font_color_pressed = Color( 0.898039, 0.94902, 1, 1 )
-custom_fonts/font = SubResource( 4 )
-action_mode = 0
-text = "Enable Legacy Menu"
-flat = true
-script = ExtResource( 54 )
-target = "enable_oldmenu"
-
 [node name="DisableAutoUpdate" type="CheckBox" parent="TabContainer/Replays & Misc/Recording/Group/H"]
 margin_top = 32.0
 margin_right = 318.0

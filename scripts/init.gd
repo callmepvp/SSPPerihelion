@@ -9,9 +9,6 @@ func stage(text:String,done:bool=false):
 	if done:
 #		black_fade_target = true
 		$Label2.text = "Loading menu"
-		if Rhythia.enable_oldmenu:
-			Rhythia.menu_target = "res://scenes/menu/oldmenu2.tscn"
-			target = Rhythia.menu_target # re-initializing so it updates everywhere else -fog
 		var res = RQueue.queue_resource(target)
 		if res != OK:
 			Rhythia.errorstr = "queue_resource returned %s" % res

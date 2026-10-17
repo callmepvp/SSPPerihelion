@@ -46,7 +46,6 @@ onready var smm_visibility:Dictionary = {
 	$L/Credits: true,
 	$L/ContentMgr: true,
 	$L/Language: false,
-	$L/OldMenu: false,
 	$L/Quit: true,
 	$L/RhythiaRewrite: true
 }
@@ -64,18 +63,6 @@ func press(bi:int,q:bool=false):
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,0)
 	else:
 		get_node("../VersionNumber").self_modulate = Color(1,1,1,1)
-
-func to_old_menu():
-	get_node("../Press").play()
-	get_viewport().get_node("Menu").black_fade_target = true
-	if Input.is_key_pressed(KEY_C):
-		if !Rhythia.selected_song:
-			Globals.notify(Globals.NOTIFY_WARN,"No selected song","Automatically selecting a song")
-			Rhythia.select_song(Rhythia.registry_song.items[0])
-		Rhythia.menu_target = "res://scripts/cursordance/dancetest.tscn"
-	else: Rhythia.menu_target = "res://scenes/menu/menu.tscn"
-	yield(get_tree().create_timer(0.35),"timeout")
-	get_tree().change_scene("res://scenes/loaders/menuload.tscn")
 
 func quit():
 	get_node("../Press").play()
@@ -122,7 +109,6 @@ func _ready():
 	$Click.connect("mouse_entered",self,"_on_Sidebar", [true])
 	$L.connect("mouse_entered",self,"_on_Sidebar", [true])
 	connect("mouse_exited",self,"_on_Sidebar", [false])
-	$L/OldMenu.connect("pressed",self,"to_old_menu")
 	$L/Quit.connect("pressed",self,"quit")
 
 	if Rhythia.single_map_mode:
