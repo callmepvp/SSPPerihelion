@@ -41,6 +41,14 @@ func _ready():
 		Discord.activity_manager.update_activity(activity)
 		
 		get_tree().create_timer(300).connect("timeout",self,"idle_status")
+		
+	var h2 = get_node_or_null("Main/Maps/Results/Results/RS/H2")
+	if h2:
+		var panel:PanelContainer = PanelContainer.new()
+		panel.set_script(load("res://scripts/ui/menu/MaxPPPanel.gd"))
+		var rs = h2.get_parent()
+		rs.add_child(panel)
+		rs.move_child(panel, h2.get_index() + 1)
 
 var black_fade_target:bool = false
 var black_fade:float = 1

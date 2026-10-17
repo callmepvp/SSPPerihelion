@@ -129,6 +129,7 @@ func _ready():
 	visible = Rhythia.just_ended_song
 	if Rhythia.just_ended_song:
 		var is_best:bool = Rhythia.do_pb_check_and_set()
+		PP.record_play()
 		if is_best: $NewBest.play()
 		if Rhythia.song_end_type == Globals.END_PASS:
 			if Rhythia.was_replay: $Result.text = "Replay passed"

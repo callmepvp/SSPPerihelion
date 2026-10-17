@@ -92,8 +92,39 @@ func quit():
 	get_viewport().get_node("Menu").black_fade_target = true
 	yield(get_tree().create_timer(0.35),"timeout")
 	get_tree().quit()
+	
+func _add_performance_page():
+	var main = get_node("../Main")
+	var page:Control = Control.new()
+	page.set_script(load("res://scripts/ui/menu/PerformancePage.gd"))
+	page.name = "Performance"
+	page.visible = false
+	main.add_child(page)
+
+	# clone the Language button so it matches the other sidebar buttons
+	var btn:Button = $L/Language.duplicate()
+	btn.name = "Performance"
+	btn.pressed = false
+	btn.get_node("Label").text = "Performance"
+	btn.get_node("Tex").visible = false
+	var pp_icon:Label = Label.new()
+	pp_icon.text = "pp"
+	pp_icon.align = Label.ALIGN_CENTER
+	pp_icon.valign = Label.VALIGN_CENTER
+	pp_icon.rect_position = Vector2(10, 10)
+	pp_icon.rect_size = Vector2(38, 38)
+	pp_icon.add_font_override("font", btn.get_node("Label").get("custom_fonts/font"))
+	btn.add_child(pp_icon)
+	$L.add_child(btn)
+	$L.move_child(btn, $L/Language.get_index() + 1)
+
+	pages.append(page)
+	buttons.append(btn)
+	use_ver_b.append(false)
+	hide_ver.append(false)
 
 func _ready():
+	_add_performance_page()
 	for i in range(buttons.size()):
 		buttons[i].connect("pressed",self,"press",[i])
 
