@@ -1,3 +1,4 @@
+#SFXManager
 extends Node
 
 const MAX_NODES = 48

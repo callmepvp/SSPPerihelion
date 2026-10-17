@@ -1,3 +1,4 @@
+#Spinner
 extends MeshInstance
 
 export(float) var spin_speed = 3.14/7.5

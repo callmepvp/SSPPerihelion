@@ -1,3 +1,4 @@
+#configDisp
 extends ColorRect
 
 func _ready():

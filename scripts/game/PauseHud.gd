@@ -1,3 +1,4 @@
+#PauseHUD
 extends Control
 
 onready var pbar = $ProgressBar

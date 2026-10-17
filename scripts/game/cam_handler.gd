@@ -1,3 +1,4 @@
+#cam_handler
 extends Spatial
 
 var state = (Rhythia.replaying and Rhythia.alt_cam)

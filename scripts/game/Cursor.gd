@@ -1,3 +1,4 @@
+#Cursor
 extends Spatial
 
 var rpos:Vector2 = Vector2(transform.origin.x,-transform.origin.y)
@@ -114,7 +115,7 @@ func _input(event:InputEvent):
 			else:
 				move_cursor_abs(relative + off)
 		elif !Rhythia.get("cam_unlock") and move_mode == C_MOUSE:
-			visible = true
+			visible = Rhythia.show_cursor
 			if (event is InputEventMouseMotion):
 				face = event.relative
 				if Rhythia.invert_mouse:

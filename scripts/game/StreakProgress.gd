@@ -1,3 +1,4 @@
+#StreakProgress
 extends Control
 
 onready var parts:Array = [$Part]

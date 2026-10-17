@@ -1,3 +1,4 @@
+#Friend
 extends MeshInstance
 
 var failed = false

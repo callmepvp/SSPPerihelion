@@ -1,3 +1,4 @@
+#CursorTrail
 extends Spatial
 
 signal cache_me

@@ -1,3 +1,4 @@
+#HUD
 extends Spatial
 
 
@@ -112,10 +113,13 @@ var combo_ring_value:float = 0
 
 func update_static_values():
 
-	if Game.hits == Game.total_notes: acclabel.text = "100%"
+	if Game.total_notes == 0: acclabel.text = "--"
+	elif Game.hits == Game.total_notes: acclabel.text = "100%"
 	elif Game.hits == 0: acclabel.text = "0%"
 	else: acclabel.text = "%.3f%%" % ((Game.hits/Game.total_notes)*100)
+	
 	Rhythia.song_end_accuracy_str = acclabel.text
+	
 	if not Game.total_notes == 0:
 		accbar.value = Game.hits/Game.total_notes
 	noteslabel.text = "%s/%s" % [Globals.comma_sep(Game.hits),Globals.comma_sep(Game.total_notes)]
@@ -218,7 +222,6 @@ func update_timer(ms:float,canSkip:bool=false):
 	
 	timebar.value = (clamp(qms/lms,0,1)) 
 	if canSkip: timelabel.text = "PRESS SPACE TO SKIP"
-	elif canSkip and OS.has_feature("Android"): timelabel.text = "TAP TO SKIP"
 	else: timelabel.text = "%d:%02d / %d:%02d" % [m,rs,lm,lrs]
 	Rhythia.song_end_time_str = "%d:%02d" % [m,rs]
 	

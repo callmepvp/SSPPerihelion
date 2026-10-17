@@ -1,3 +1,4 @@
+#TextShake
 extends Control
 
 var rng = RandomNumberGenerator.new()

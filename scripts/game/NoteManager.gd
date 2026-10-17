@@ -1,3 +1,4 @@
+#NoteManager
 extends Spatial
 class_name NoteManager
 

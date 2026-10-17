@@ -1,3 +1,4 @@
+#CircularProgress2
 extends Control
 
 onready var spin = $Spin
