@@ -1,4 +1,8 @@
+#WarningBar
 extends ColorRect
+
+onready var version_a = get_parent().get_node("VersionNumber")
+onready var version_b = get_parent().get_node("VersionNumberB")
 
 var entry:float = 0
 var state:bool = false
@@ -39,7 +43,6 @@ func display_warning(id:String):
 			state = true
 			$L.text = "You are currently using experimental settings. Expect bugs."
 			color = Color("#c1c1ac")
-#			color = Color("#dbd1a2")
 		"experimental_mod":
 			state = true
 			$L.text = "One or more mods you selected are currently experimental. Expect bugs."
@@ -59,18 +62,12 @@ func check_experimental_settings():
 	return false
 
 func check_warnings():
-	if Input.is_action_pressed("arcw3") and bar_enable:
-		bar_enable = false
-
 	if Input.is_action_pressed("warning_test"):
 		return "test"
 	elif Rhythia.single_map_mode:
 		return "smm"
 	elif Rhythia.note_spawn_effect:
 		return "spawn"
-	# Temp mark HR as a Experimental due to issues :/
-	#elif Rhythia.mod_hardrock:
-	#	return "experimental_mod"
 	elif OS.has_feature("debug"):
 		return "debug"
 	elif check_experimental_settings():
@@ -85,8 +82,7 @@ func check_warnings():
 
 func _process(delta):
 	var width:float = rect_size.x
-	var percent_len:float = 0
-	
+
 	if switch != -1:
 		if entry == 0:
 			switch = max(switch - delta, 0)
@@ -103,41 +99,29 @@ func _process(delta):
 			if current_warning != prev:
 				switch = 0.35
 				state = false
-	
-	
+
 	scroll = scroll + (delta * (20.0/1200.0)) * (
 		1.5 + (3.0 * float(Input.is_key_pressed(KEY_CONTROL))))
 	if scroll >= 1.0: scroll -= 1.0
-	
-	$L.rect_position = Vector2(
-		(width * scroll),# - $L.rect_size.x,
-		0
-	)
-	$L2.rect_position = Vector2(
-		(width * scroll) - width,# - $L.rect_size.x,
-		0
-	)
-	
-	if state && entry != 1:
-		entry = min(entry + (delta/0.8), 1.0)
+
+	$L.rect_position = Vector2(width * scroll, 0)
+	$L2.rect_position = Vector2((width * scroll) - width, 0)
+
+	var target_entry:float = 1.0 if state else 0.0
+	if entry != target_entry:
+		if state:
+			entry = min(entry + (delta/0.8), 1.0)
+		else:
+			entry = max(entry - (delta/0.8), 0.0)
 		modulate = Color(1.0, 1.0, 1.0, entry)
-		margin_top = Dance.InOutSine(entry) * -30
-		margin_bottom = (1.0 - Dance.InOutSine(entry)) * 30
-		get_parent().get_node("VersionNumber").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumber").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		
-	elif !state && entry != 0:
-		entry = max(entry - (delta/0.8), 0.0)
-		modulate = Color(1.0, 1.0, 1.0, entry)
-		margin_top = Dance.InOutSine(entry) * -30
-		margin_bottom = (1.0 - Dance.InOutSine(entry)) * 30
-		get_parent().get_node("VersionNumber").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumber").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_top = -45 - (Dance.InOutSine(entry)*30)
-		get_parent().get_node("VersionNumberB").margin_bottom = -15 - (Dance.InOutSine(entry)*30)
-		
+		var sine = Dance.InOutSine(entry)
+		margin_top = sine * -30
+		margin_bottom = (1.0 - sine) * 30
+		version_a.margin_top = -45 - (sine * 30)
+		version_a.margin_bottom = -15 - (sine * 30)
+		version_b.margin_top = -45 - (sine * 30)
+		version_b.margin_bottom = -15 - (sine * 30)
+
 	visible = (entry != 0)
 
 func _ready():

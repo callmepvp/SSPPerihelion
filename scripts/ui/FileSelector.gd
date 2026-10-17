@@ -1,33 +1,36 @@
+#FileSelector
 extends ColorRect
 class_name FileSelector2D
 
 var target_object:Object
 var target_method:String
-var cancel_method:String
+
+func _apply_scale(dialog):
+	var s = clamp(Rhythia.render_scale * 0.9, 0.5, 0.9)
+	dialog.rect_pivot_offset = get_viewport_rect().size / 2
+	dialog.rect_scale = Vector2(s, s)
+
+func _finish(value):
+	if target_object == null:
+		return
+	var obj = target_object
+	var meth = target_method
+	target_object = null
+	target_method = ""
+	visible = false
+	obj.call(meth, value)
 
 func save_sel(file:String):
-	if target_object and target_object != self:
-		target_object.call(target_method,file)
-		target_object = self
-		visible = false
+	_finish(file)
 
 func files_single(file:String):
-	if target_object and target_object != self:
-		target_object.call(target_method,PoolStringArray([file]))
-		target_object = self
-		visible = false
+	_finish(PoolStringArray([file]))
 
 func files_sel(files:PoolStringArray):
-	if target_object and target_object != self:
-		target_object.call(target_method,files)
-		target_object = self
-		visible = false
+	_finish(files)
 
 func folder_sel(folder:String):
-	if target_object and target_object != self:
-		target_object.call(target_method,folder)
-		target_object = self
-		visible = false
+	_finish(folder)
 
 func _ready():
 	visible = false
@@ -50,8 +53,7 @@ func open_file(
 	target_object = obj
 	target_method = method
 
-	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
-	$C/OpenFile.rect_scale = Vector2(clamp(Rhythia.render_scale,0.5,1), clamp(Rhythia.render_scale,0.5,1))
+	_apply_scale($C/OpenFile)
 
 	$C/OpenFile.filters = filters
 	if multiselect:
@@ -74,8 +76,7 @@ func save_file(
 	target_object = obj
 	target_method = method
 
-	$C/OpenFile.rect_pivot_offset = get_viewport_rect().size / 2
-	$C/OpenFile.rect_scale = Vector2(clamp(Rhythia.render_scale,0.5,1), clamp(Rhythia.render_scale,0.5,1))
+	_apply_scale($C/SaveFile)
 
 	$C/SaveFile.filters = filters
 	$C/SaveFile.show()
@@ -90,6 +91,8 @@ func open_folder(
 ):
 	target_object = obj
 	target_method = method
+
+	_apply_scale($C/Folder)
 
 	$C/Folder.show()
 	$C/Folder.call_deferred("set_current_dir",Globals.p(initial_path))

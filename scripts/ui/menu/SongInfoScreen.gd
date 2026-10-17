@@ -1,3 +1,4 @@
+#SongInfoScreen
 extends Control
 
 func comma_sep(number):

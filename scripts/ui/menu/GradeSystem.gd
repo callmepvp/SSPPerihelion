@@ -1,8 +1,7 @@
+#GradeSystem
 extends MenuButton
 
-var meshes:Array = []
 var current_sel:int
-
 
 var names = [
 	"Default - extra scoring types", # GRADE_SSP

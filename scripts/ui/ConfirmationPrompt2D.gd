@@ -1,3 +1,4 @@
+#ConfirmationPrompt2D
 extends ColorRect
 class_name ConfirmationPrompt2D
 
@@ -29,10 +30,15 @@ func open(body:String, title:String="Confirm", options:Array=[
 ]):
 	title_label.text = title
 	body_label.text = body
+
+	current_options = []
+	for o in options:
+		current_options.append(o.duplicate())
+
 	for i in range(buttons.size()):
 		var button:Button = buttons[i]
-		if i < options.size():
-			var option:Dictionary = options[i]
+		if i < current_options.size():
+			var option:Dictionary = current_options[i]
 			button.visible = true
 			button.disabled = true
 			if option.has("wait"):
@@ -41,6 +47,7 @@ func open(body:String, title:String="Confirm", options:Array=[
 				button.text = option.text
 		else:
 			button.visible = false
+
 	twn.stop_all()
 	$C.rect_position = Vector2(-300,0)
 	modulate = Color(1,1,1,0)
@@ -50,13 +57,14 @@ func open(body:String, title:String="Confirm", options:Array=[
 	twn.interpolate_property(self,"modulate",Color(1,1,1,0),Color(1,1,1,1),transition_time,Tween.TRANS_SINE,Tween.EASE_OUT)
 	twn.start()
 	yield(twn,"tween_all_completed")
+
 	for i in range(buttons.size()):
 		var button:Button = buttons[i]
-		if i < options.size():
-			button.disabled = options[i].has("wait")
+		if i < current_options.size():
+			button.disabled = current_options[i].has("wait")
+
 	buttons[0].grab_focus()
 	is_open = true
-	current_options = options
 	emit_signal("done_opening")
 
 func close():

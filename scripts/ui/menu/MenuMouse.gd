@@ -1,3 +1,4 @@
+#MenuMouse
 extends Particles2D
 
 func _input(event):

@@ -1,3 +1,4 @@
+#VersionNumber
 extends Label
 
 func _ready():

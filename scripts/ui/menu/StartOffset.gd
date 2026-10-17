@@ -1,3 +1,4 @@
+#StartOffset
 extends HSlider
 
 func get_seconds_from_ms(ms:float):

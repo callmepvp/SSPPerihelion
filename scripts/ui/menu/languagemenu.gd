@@ -1,3 +1,4 @@
+#languagemenu
 extends ColorRect
 
 onready var languageselect = $ChangeLanguage/SelectLanguageWindow/languageselector

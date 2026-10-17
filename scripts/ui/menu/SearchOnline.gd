@@ -1,3 +1,4 @@
+#SearchOnline
 extends CheckBox
 
 export(String) var target

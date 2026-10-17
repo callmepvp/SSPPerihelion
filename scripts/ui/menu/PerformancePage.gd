@@ -1,3 +1,4 @@
+#PerformancePage
 extends Control
 
 const BOLD = "res://assets/font/Lato/Lato-Bold.ttf"

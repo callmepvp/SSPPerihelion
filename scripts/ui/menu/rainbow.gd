@@ -1,3 +1,4 @@
+#rainbow
 extends Control
 
 export(float) var saturation = 0.65

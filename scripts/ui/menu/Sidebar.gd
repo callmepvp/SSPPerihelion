@@ -1,3 +1,4 @@
+#Sidebar
 extends Panel
 
 var open:bool = false

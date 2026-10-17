@@ -1,3 +1,4 @@
+#Notify2D
 extends VBoxContainer
 class_name Notify2D
 
@@ -25,7 +26,7 @@ func notify(type:int,body:String,title:String="Notification",time:float=5):
 	twn.interpolate_property(notif,"modulate",Color(1,1,1,0),Color(1,1,1,1),0.25)
 	twn.start()
 	
-	yield(get_tree().create_timer(time - 2),"timeout")
+	yield(get_tree().create_timer(max(time - 2, 0)),"timeout")
 	
 	twn.stop_all()
 	twn.interpolate_property(notif,"modulate",Color(1,1,1,1),Color(1,1,1,0),2)

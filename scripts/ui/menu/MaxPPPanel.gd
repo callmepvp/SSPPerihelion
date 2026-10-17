@@ -1,3 +1,4 @@
+#MaxPPPanel
 extends PanelContainer
 
 const BLACK = "res://assets/font/Lato/Lato-Black.ttf"

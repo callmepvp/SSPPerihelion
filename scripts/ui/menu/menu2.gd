@@ -1,3 +1,4 @@
+#menu2
 extends Node
 
 func _ready():
