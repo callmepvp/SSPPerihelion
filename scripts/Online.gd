@@ -296,11 +296,28 @@ var latest_version_data
 signal latest_version
 var version_hr:HTTPRequest = HTTPRequest.new()
 func check_latest_version():
-	if !OS.has_feature("Windows") or !ProjectSettings.get_setting("application/networking/enabled"):
-		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
+	var fallback = ProjectSettings.get_setting("application/config/version")
+
+	if !OS.has_feature("Windows"):
+		call_deferred("emit_signal", "latest_version", fallback)
 		return
+
+	if !ProjectSettings.get_setting("application/networking/enabled"):
+		call_deferred("emit_signal", "latest_version", fallback)
+		return
+
+	var repo = ProjectSettings.get_setting("application/networking/github_repo")
+	if repo == null or String(repo).strip_edges() == "":
+		call_deferred("emit_signal", "latest_version", fallback)
+		return
+
 	var github_url = "https://api.github.com/repos/%s/releases/latest"
-	version_hr.request(github_url % ProjectSettings.get_setting("application/networking/github_repo"))
+	var res = version_hr.request(github_url % repo)
+	if res != OK:
+		print("[UpdateCheck] HTTPRequest.request failed with %s" % res)
+		call_deferred("emit_signal", "latest_version", fallback)
+	
+	
 func _on_version_request_completed(result:int,response_code:int,headers:PoolStringArray,body:PoolByteArray):
 	if result != HTTPRequest.RESULT_SUCCESS or response_code != 200:
 		emit_signal("latest_version",ProjectSettings.get_setting("application/config/version"))
